@@ -44,11 +44,14 @@ export default function Review() {
             </Box>
           </Grid>
         </Grid>
-        <Grid xs={9}>
+        <Grid xs={8}>
           <CardContent>
-            Review text here...
+            <Typography variant="body1">
+              Review text here...
+            </Typography>
           </CardContent>
         </Grid>
+        <Grid xs={1}></Grid>
         <Grid xs={1}></Grid>
         <Grid xs={1}>
           <ThumbUpOffAltIcon />
