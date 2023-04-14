@@ -1,10 +1,25 @@
-import * as React from 'react';
-import AddReview from './components/AddReview';
-
+import Review from "./components/review";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
 
 function App() {
   return (
-    <AddReview />
+    <div>
+      <List>
+        <ListItem>
+          <Review />
+        </ListItem>
+        <Divider />
+        <ListItem>
+          <Review />
+        </ListItem>
+        <Divider />
+        <ListItem>
+          <Review />
+        </ListItem>
+      </List>
+    </div>
   );
 }
 
