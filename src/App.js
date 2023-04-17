@@ -1,10 +1,16 @@
 import * as React from 'react';
-import AddReview from './components/AddReview';
-
+import AggregatedReviews from './components/AggregatedReviews';
+import Review from './components/Review';
+import DormName from './components/DormName';
+import Table from './components/Table';
 
 function App() {
   return (
-    <AddReview />
+    <div>
+      <DormName />
+      <AggregatedReviews />
+      <Table />
+    </div>
   );
 }
 

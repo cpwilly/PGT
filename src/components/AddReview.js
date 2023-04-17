@@ -32,7 +32,12 @@ export default function AddReview() {
       <Button variant="outlined" onClick={handleClickOpen}>
         Add Review
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog 
+        open={open} 
+        onClose={handleClose}
+        maxWidth='md'
+        fullWidth='true'
+      >
         <DialogTitle>Add Review</DialogTitle>
         <DialogContent>
             <Box sx={{mt: 1}}>
@@ -48,6 +53,7 @@ export default function AddReview() {
             label="Description"
             type="description"
             fullWidth
+            multiline
             variant="standard"
           />
           <Rating />
