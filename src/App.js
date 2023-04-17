@@ -10,13 +10,11 @@ function App() {
     <div className='container-fluid'>
         <div className='col text-center'>
           <div className='row-lg-6 mb-5'>
-            <br /><br />
-            <h1>RateMyDorm</h1>
-            <br /><br /><br /><br /><br />
+            <h1 className = 'heading'>RateMyDorm</h1>
           </div>
           <div className='row-lg-6'>
             <div className='row'>
-              <div className='col-lg-4'>
+              <div className='col-lg-4'> 
                 <First />
               </div>
               <div className='col-lg-4'>

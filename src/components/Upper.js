@@ -1,5 +1,13 @@
 import React from "react";
 import { useState } from "react";
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
 
 const options = ["1609 Hazel Apartments",
     "1680 Apartments", 
@@ -26,20 +34,23 @@ function DropdownForm() {
     console.log(selected);
   };
   return (
-    <form>
-      <select 
-       value={selected} 
-       onChange={(e) => setSelected(e.target.value)}>
-         {options.map((value) => (
-          <option value={value} key={value}>
-            {value}
-          </option>
-         ))}
-      </select>
-      <button type="button" onClick={submit}>
-        Submit
-      </button>
-    </form>
+    <>
+      <Box sx={{ minWidth: 120 }}>
+        <FormControl fullWidth margin = "normal">
+          <Select
+            value={selected} 
+            onChange={(e) => setSelected(e.target.value)}
+          >
+            {options.map((value) => (
+              <MenuItem value={value} key={value}>
+                {value}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Button size = "large" variant="contained" type="button" onClick={submit}>Submit</Button>
+      </Box>
+    </>
   );
 }
 export default DropdownForm;
