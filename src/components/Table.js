@@ -11,15 +11,26 @@ function createData(review) {
   return { review };
 }
 
-const rows = [
-  createData(<Review />),
-  createData(<Review />),
-  createData(<Review />),
-  createData(<Review />),
-  createData(<Review />),
-];
+function addReviews(reviews){
+  let rows = []
 
-export default function BasicTable() {
+  for(let i = 0; i < reviews.length; i++){
+    rows = [...rows, createData(<Review
+                       date={reviews[i].date}
+                       numResidents={reviews[i].numResidents}
+                       numBathrooms={reviews[i].numBathrooms}
+                       description={reviews[i].description}
+                       rating={reviews[i].rating}
+                       />)];
+  }
+
+  return rows;
+}
+
+
+export default function BasicTable(props) {
+  const [rows, setRows] = React.useState(addReviews(props.reviews));
+
   return (
     <TableContainer>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
