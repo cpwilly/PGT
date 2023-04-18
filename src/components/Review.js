@@ -19,7 +19,7 @@ export default function Review(props) {
         <Grid item xs={4}>
           Number of Residents: {props.numResidents}
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={4}>
           Number of Bathrooms: {props.numBathrooms}
         </Grid>
         <Grid xs={3}>
