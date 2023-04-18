@@ -1,14 +1,13 @@
-import Review from "./components/review";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
+import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 import AggregatedReviews from './components/AggregatedReviews';
 import DormName from './components/DormName';
 import Table from './components/Table';
 
-function App() {
+function App({ signOut, user }) {
   return (
     <div>
+      <Button onClick={signOut}>Sign out</Button>
       <DormName />
       <AggregatedReviews />
       <Table />
@@ -16,4 +15,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);
