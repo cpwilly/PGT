@@ -5,11 +5,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function BasicSelect() {
+export default function BasicSelect(props) {
   const [bathrooms, setBathrooms] = React.useState('');
 
   const handleChange = (event) => {
     setBathrooms(event.target.value);
+    props.handleBathroomsChange(event.target.value);
   };
 
   return (

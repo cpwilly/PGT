@@ -5,25 +5,22 @@ import { Box, CardContent, Typography } from '@mui/material';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
-export default function Review() {
+export default function Review(props) {
   return (
     <Card sx={{ maxWidth: 800 }}>
       <Grid container>
         <Grid item xs={10}></Grid>
         <Grid item xs={2}>
           <div>
-            Date
+            {props.date}
           </div>
         </Grid>
         <Grid xs={2}></Grid>
         <Grid item xs={4}>
-          Number of bathrooms: 70
-        </Grid>
-        <Grid item xs={2}>
-          Kitchen: No
+          Number of Residents: {props.numResidents}
         </Grid>
         <Grid item xs={4}>
-          In-unit Laundry: No
+          Number of Bathrooms: {props.numBathrooms}
         </Grid>
         <Grid xs={3}>
           <Grid container>
@@ -39,7 +36,7 @@ export default function Review() {
               <Typography variant="h4" sx={{
                 color: 'black',
               }}>
-                5
+                {props.rating}
               </Typography>
             </Box>
           </Grid>
@@ -47,7 +44,7 @@ export default function Review() {
         <Grid xs={8}>
           <CardContent>
             <Typography variant="body1">
-              Review text here...
+              {props.description}
             </Typography>
           </CardContent>
         </Grid>
