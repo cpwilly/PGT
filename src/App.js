@@ -4,14 +4,11 @@ import DisplayPage from "./pages/DisplayPage";
 import FilterPage from "./pages/FilterPage";
 import Layout from "./pages/Layout";
 import NoPage from "./pages/NoPage";
-import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
+import { withAuthenticator, Button } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import AggregatedReviews from './components/AggregatedReviews';
-import DormName from './components/DormName';
-import Table from './components/Table';
 
-export function App() {
-    const [selected, setSelected] = React.useState('Raymond');
+export function App({user, signOut}) {
+  const [selected, setSelected] = React.useState('Raymond');
   return (
     <BrowserRouter>
       <Button onClick={signOut}>Sign out</Button>
