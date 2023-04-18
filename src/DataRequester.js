@@ -5,6 +5,7 @@ import { Account } from './models';
 
 const url = ''; //API endpoint URL
 
+// This might all become static because it would make it so we don't have to instantiate this requester a ton
 //Super basic get request
 async function getReviews(){
     const response = await fetch(url);
