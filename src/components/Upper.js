@@ -7,6 +7,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { useNavigate } from "react-router-dom";
+
 
 
 const options = ["1609 Hazel Apartments",
@@ -28,10 +30,13 @@ const options = ["1609 Hazel Apartments",
     "Triangle Towers",
     "Twin Gables"];
     
-function DropdownForm() {
+function DropdownForm(props) {
+  let navigate = useNavigate();
+
   const [selected, setSelected] = useState(options[0]);
   const submit = () => {
-    console.log(selected);
+    props.setSelected(selected);
+    navigate('DisplayPage');
   };
   return (
     <>

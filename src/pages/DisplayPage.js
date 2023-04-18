@@ -1,15 +1,15 @@
 import * as React from 'react';
-import AggregatedReviews from './components/AggregatedReviews';
-import DormName from './components/DormName';
-import Table from './components/Table';
+import AggregatedReviews from '../components/AggregatedReviews';
+import DormName from '../components/DormName';
+import Table from '../components/Table';
 
-function databaseReceive(){
+function databaseReceive(name){
   let data = {
-    name: 'Taplin House',
+    name: name,
     rating: 3.7,
     numReviews: 309,
     //        5    4   3   2   1
-    numEach: [106, 56, 12, 77, 59],
+    numEach: [102, 56, 12, 77, 59],
     reviews: [
       {
         date: '4/17/23',
@@ -32,12 +32,12 @@ function databaseReceive(){
 }
 
 
-export default function DisplayPage() {
-  let data = databaseReceive();
+export default function DisplayPage(props) {
+  let data = databaseReceive(props.name);
 
   return (
     <div>
-      <DormName dormName={data.name}/>
+      <DormName dormName={props.name}/>
       <AggregatedReviews rating={data.rating} numReviews={data.numReviews} numEach={data.numEach}/>
       <Table reviews={data.reviews}/>
     </div>
