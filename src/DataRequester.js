@@ -50,11 +50,15 @@ async function getData(dataType){
 //This is a POST request. We pass in a DataType to choose where our post goes to
 //If we don't the method will fail
 async function postData(dataType, JsonObject){
-    await DataStore.save(
-        new dataType({
-            JsonObject
-        })
-    );
+    try{
+        await DataStore.save(
+            new dataType({
+                JsonObject
+            })
+        );
+    } catch(Error){
+        console.log(Error);
+    }
 }
 
 //Ex JsonObject:
@@ -78,15 +82,23 @@ async function postData(dataType, JsonObject){
 
 //This is a DELETE request.
 async function deleteData(dataType, dataId){
-    const modelToDelete = await DataStore.query(dataType, dataId);
-    DataStore.delete(modelToDelete);
+    try{
+        const modelToDelete = await DataStore.query(dataType, dataId);
+        DataStore.delete(modelToDelete);
+    } catch (Error){
+        console.log(Error);
+    }
 }
 
 //This is a PUT request (i.e. an update request)
 async function updateData(dataType, CURRENT_ITEM){
     /* Models in DataStore are immutable. To update a record you must use the copyOf function
  to apply updates to the item’s fields rather than mutating the instance directly */
-    await DataStore.save(datType.copyOf(CURRENT_ITEM, item => {
-        // Update the values on {item} variable to update DataStore entry
-    }));
+    try{
+        await DataStore.save(datType.copyOf(CURRENT_ITEM, item => {
+            // Update the values on {item} variable to update DataStore entry
+        }));
+    } catch (Error){
+        console.log(Error);
+    }
 }
