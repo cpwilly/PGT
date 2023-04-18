@@ -1,26 +1,26 @@
-import Review from "./components/review";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DisplayPage from "./pages/DisplayPage";
+import FilterPage from "./pages/FilterPage";
+import Layout from "./pages/Layout";
+import NoPage from "./pages/NoPage";
+import { withAuthenticator, Button } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
-function App() {
+export function App({user, signOut}) {
+  const [selected, setSelected] = React.useState('Raymond');
   return (
-    <div>
-      <List>
-        <ListItem>
-          <Review />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <Review />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <Review />
-        </ListItem>
-      </List>
-    </div>
+    <BrowserRouter>
+      <Button onClick={signOut}>Sign out</Button>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<FilterPage setSelected={setSelected}/>} />
+          <Route path="DisplayPage" element={<DisplayPage name={selected}/>} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-export default App;
+export default withAuthenticator(App);

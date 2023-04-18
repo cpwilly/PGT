@@ -16,8 +16,12 @@ import Box from '@mui/material/Box';
 // rating
 
 
-export default function AddReview() {
+export default function AddReview(props) {
   const [open, setOpen] = React.useState(false);
+  const [residents, setResidents] = React.useState('');
+  const [bathrooms, setBathrooms] = React.useState('');
+  const [description, setDescription] = React.useState('');
+  const [rating, setRating] = React.useState(-1);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -25,22 +29,63 @@ export default function AddReview() {
 
   const handleClose = () => {
     setOpen(false);
+    setResidents('');
+    setBathrooms('');
+    setDescription('');
+    setRating(-1);
   };
+
+  const handleAdd = () => {
+
+    // TODO: add form validation
+
+    databaseSend();
+    handleClose();
+  }
+
+  /* add API call in this function */
+  const databaseSend = () => {
+    console.log(residents);
+    console.log(bathrooms);
+    console.log(description);
+    console.log(rating);
+  }
+
+  const handleResidentsChange = (newValue) => {
+    setResidents(newValue);
+  }
+
+  const handleBathroomsChange = (newValue) => {
+    setBathrooms(newValue);
+  }
+
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+  }
+
+  const handleRatingsChange = (newValue) => {
+    setRating(newValue);
+  }
 
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
         Add Review
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        maxWidth='md'
+        fullWidth='true'
+      >
         <DialogTitle>Add Review</DialogTitle>
         <DialogContent>
-            <Box sx={{mt: 1}}>
-                <ResidentsDropdown />
-            </Box>
-            <Box sx={{mt: 2}}>
-                <BathroomsDropdown />
-            </Box>
+          <Box sx={{ mt: 1 }}>
+            <ResidentsDropdown handleResidentsChange={handleResidentsChange}/>
+          </Box>
+          <Box sx={{ mt: 2 }}>
+            <BathroomsDropdown handleBathroomsChange={handleBathroomsChange}/>
+          </Box>
           <TextField
             autoFocus
             margin="dense"
@@ -48,13 +93,16 @@ export default function AddReview() {
             label="Description"
             type="description"
             fullWidth
+            multiline
             variant="standard"
+            value={description}
+            onChange={e => handleDescriptionChange(e)}
           />
-          <Rating />
+          <Rating handleRatingsChange={handleRatingsChange}/>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Add</Button>
+          <Button onClick={handleAdd}>Add</Button>
         </DialogActions>
       </Dialog>
     </div>
