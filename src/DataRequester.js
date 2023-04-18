@@ -5,6 +5,7 @@ import { Account } from './models';
 
 const url = ''; //API endpoint URL
 
+//Determine if this all needs to become static
 //Super basic get request
 async function getReviews(){
     const response = await fetch(url);
