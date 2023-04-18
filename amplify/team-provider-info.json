@@ -1,0 +1,24 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dormratingapp-staging-210150-authRole",
+      "UnauthRoleArn": "arn:aws:iam::016834101453:role/amplify-dormratingapp-staging-210150-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::016834101453:role/amplify-dormratingapp-staging-210150-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-dormratingapp-staging-210150-deployment",
+      "UnauthRoleName": "amplify-dormratingapp-staging-210150-unauthRole",
+      "StackName": "amplify-dormratingapp-staging-210150",
+      "StackId": "arn:aws:cloudformation:us-east-2:016834101453:stack/amplify-dormratingapp-staging-210150/9b5672b0-c374-11ed-9aaa-0a6bfe447b3c",
+      "AmplifyAppId": "d2tkpyqoad8nwq"
+    },
+    "categories": {
+      "api": {
+        "DormRatingApp": {}
+      },
+      "auth": {
+        "DormRatingApp": {},
+        "dormratingapp3552ca75": {}
+      }
+    }
+  }
+}
