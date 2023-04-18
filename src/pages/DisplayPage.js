@@ -3,29 +3,17 @@ import AggregatedReviews from '../components/AggregatedReviews';
 import DormName from '../components/DormName';
 import Table from '../components/Table';
 
+requester = new DataRequester();
+
+// Might need to refactor to take into account await methods
 function databaseReceive(name){
+  jsonDorm = await requester.getData(name);
   let data = {
-    name: name,
-    rating: 3.7,
-    numReviews: 309,
-    //        5    4   3   2   1
-    numEach: [102, 56, 12, 77, 59],
-    reviews: [
-      {
-        date: '4/17/23',
-        numResidents: 4,
-        numBathrooms: 2,
-        description: 'Shit ton of drain flies',
-        rating: 1
-      },
-      {
-        date: '4/17/23',
-        numResidents: 4,
-        numBathrooms: 2,
-        description: 'Shit ton of drain flies',
-        rating: 4
-      }
-    ]
+    name: jsonDorm.name,
+    rating: jsonDorm.rating,
+    numReviews: jsonDorm.numReviews,
+    numEach: jsonDorm.numEach,   //??
+    reviews: jsonDorm.reviews,
   }; 
 
   return data;

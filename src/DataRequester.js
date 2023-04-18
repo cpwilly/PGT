@@ -3,45 +3,12 @@ import { Dorm } from './models';
 import { Review } from './models';
 import { Account } from './models';
 
-const url = ''; //API endpoint URL
-
-//Determine if this all needs to become static
-//Super basic get request
-async function getReviews(){
-    const response = await fetch(url);
-    const jsonData = await response.json();
-    console.log(jsonData);
-}
-
-//Basic post with try/catch
-async function postData(){
-    try{
-        const reponse = await fetch(url, data = {}, {
-            method: 'POST',
-            body: JSON.stringify(data) //Will convert our data into a JSON object
-        });
-        const result = await response.json();
-        console.log("Success", result);
-    } catch (error){
-        console.log("Error: ", error);
-    }
-}
-
-/*Need to determine data type that amplify takes. Most likely will
-need to serialize into a JSON object.
-I believe the basic idea is that we will have to pass our data
-from the methods they've made into here and work from there.
-It shouldn't be too bad but it will take time to do right*/
-
-
-//This section is for Amplify defined API calls
-
 // This is a GET request. We pass in a DataType to choose where our get comes from
 // If we don't the method will fail
-async function getData(dataType){
+async function getData(dormName){
     try{
         // Need to test to ensure ENUMS work as expected
-        const models = await DataStore.query(dataType);
+        const models = await DataStore.query(dormName);
         console.log(models);
     } catch (Error){
         console.log(Error);
