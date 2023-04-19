@@ -22,7 +22,7 @@ export default function AggregatedReviews(props) {
                 </div>
                 <div className='col-lg-4'>
                     <Box sx={{ pt: 2, ml: 12 }}>
-                        <AddReview />
+                        <AddReview email={props.email}/>
                     </Box>
                 </div>
             </div>

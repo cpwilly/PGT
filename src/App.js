@@ -11,9 +11,8 @@ export function App({user, signOut}) {
   const [selected, setSelected] = React.useState('Raymond');
   return (
     <BrowserRouter>
-      <Button onClick={signOut}>Sign out</Button>
       <Routes>
-        <Route path='/' element={<Layout />}>
+        <Route path='/' element={<Layout sOut={signOut}/>}>
           <Route index element={<FilterPage setSelected={setSelected} />} />
           <Route path="DisplayPage" element={<DisplayPage name={selected} />} />
           <Route path="*" element={<NoPage />} />

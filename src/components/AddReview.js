@@ -49,6 +49,7 @@ export default function AddReview(props) {
     console.log(bathrooms);
     console.log(description);
     console.log(rating);
+    console.log(props.email);
   }
 
   const handleResidentsChange = (newValue) => {

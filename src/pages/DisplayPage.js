@@ -2,8 +2,10 @@ import * as React from 'react';
 import AggregatedReviews from '../components/AggregatedReviews';
 import DormName from '../components/DormName';
 import Table from '../components/Table';
+import { Auth } from 'aws-amplify';
+import { useEffect } from 'react';
 
-function databaseReceive(name){
+function databaseReceive(name) {
   let data = {
     name: name,
     rating: 3.7,
@@ -29,25 +31,34 @@ function databaseReceive(name){
         date: '4/17/23',
         numResidents: 4,
         numBathrooms: 2,
-        description: 'Shit ton of drain flies', 
+        description: 'Shit ton of drain flies',
         rating: 4,
         userEmail: 'carson@case.edu'
-      } 
+      }
     ]
-  }; 
+  };
 
   return data;
 }
 
-
 export default function DisplayPage(props) {
   let data = databaseReceive(props.name);
+  let numEach = [data.ones, data.twos, data.threes, data.fours, data.fives];
+  const [userInfo, setUserInfo] = React.useState({attributes: {email: 'test@test.com'}});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const info = await Auth.currentUserInfo()
+      setUserInfo(info);
+    }
+    fetchData();
+  }, [setUserInfo])
 
   return (
     <div className='bod'>
-      <DormName dormName={props.name}/>
-      <AggregatedReviews rating={data.rating} numReviews={data.numReviews} numEach={data.numEach}/>
-      <Table reviews={data.reviews}/>
+      <DormName dormName={props.name} />
+      <AggregatedReviews email={userInfo.attributes.email} rating={data.rating} numReviews={data.numReviews} numEach={numEach} />
+      <Table reviews={data.reviews} />
     </div>
   );
 }
