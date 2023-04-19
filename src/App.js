@@ -11,9 +11,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<FilterPage setSelected={setSelected} />} />
-        <Route path="DisplayPage" element={<DisplayPage name={selected} />} />
-        <Route path="*" element={<NoPage />} />
+        <Route path='/' element={<Layout />}>
+          <Route index element={<FilterPage setSelected={setSelected} />} />
+          <Route path="DisplayPage" element={<DisplayPage name={selected} />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
