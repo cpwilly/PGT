@@ -7,12 +7,12 @@ requester = new DataRequester();
 
 // Might need to refactor to take into account await methods
 function databaseReceive(name){
-  jsonDorm = await requester.getData(name);
+  jsonDorm = await requester.getData(DataType.Dorm, name);
   let data = {
     name: jsonDorm.name,
     rating: jsonDorm.rating,
     numReviews: jsonDorm.numReviews,
-    numEach: jsonDorm.numEach,   //??
+    numEach: jsonDorm.numEach,
     reviews: jsonDorm.reviews,
   }; 
 

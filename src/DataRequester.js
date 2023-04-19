@@ -5,15 +5,25 @@ import { Account } from './models';
 
 // This is a GET request. We pass in a DataType to choose where our get comes from
 // If we don't the method will fail
-async function getData(dormName){
+async function getData(DataType, name) {
     try{
         // Need to test to ensure ENUMS work as expected
-        const models = await DataStore.query(dormName);
-        console.log(models);
+        const models;
+        if(DataType == DataType.Dorm){
+            models = await DataStore.query(Dorm, (c) => c.name.eq(name));
+        }
+        else if (DataType == DataType.Review){
+            models = await DataStore.query(Review);
+        }
+        else if (DataType == DataType.Account){
+            models = await DataStore.query(Account);
+        }
+        return models;
     } catch (Error){
         console.log(Error);
     }
 }
+
 
 //This is a POST request. We pass in a DataType to choose where our post goes to
 //If we don't the method will fail

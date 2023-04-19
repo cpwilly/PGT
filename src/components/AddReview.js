@@ -54,6 +54,8 @@ export default function AddReview(props) {
       "Rating": rating
     })
   );
+
+  // also need to update dorm ratings count
     console.log(residents);
     console.log(bathrooms);
     console.log(description);
