@@ -8,23 +8,31 @@ function databaseReceive(name){
     name: name,
     rating: 3.7,
     numReviews: 309,
-    //        5    4   3   2   1
-    numEach: [102, 56, 12, 77, 59],
+    ones: 102,
+    twos: 56,
+    threes: 12,
+    fours: 77,
+    fives: 59,
+    wouldRoomAgain: true,
     reviews: [
       {
+        dormName: 'Taplin',
         date: '4/17/23',
         numResidents: 4,
         numBathrooms: 2,
         description: 'Shit ton of drain flies',
-        rating: 1
+        rating: 1,
+        userEmail: 'josh@case.edu'
       },
       {
+        dormName: 'Taplin',
         date: '4/17/23',
         numResidents: 4,
         numBathrooms: 2,
-        description: 'Shit ton of drain flies',
-        rating: 4
-      }
+        description: 'Shit ton of drain flies', 
+        rating: 4,
+        userEmail: 'carson@case.edu'
+      } 
     ]
   }; 
 

@@ -13,9 +13,11 @@ export function App({user, signOut}) {
     <BrowserRouter>
       <Button onClick={signOut}>Sign out</Button>
       <Routes>
-        <Route index element={<FilterPage setSelected={setSelected} />} />
-        <Route path="DisplayPage" element={<DisplayPage name={selected} />} />
-        <Route path="*" element={<NoPage />} />
+        <Route path='/' element={<Layout />}>
+          <Route index element={<FilterPage setSelected={setSelected} />} />
+          <Route path="DisplayPage" element={<DisplayPage name={selected} />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

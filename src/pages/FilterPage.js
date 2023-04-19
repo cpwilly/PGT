@@ -13,16 +13,7 @@ import pic4 from '../img/pic4.png';
 function FilterPage(props) {
   return (
     <>
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ bgcolor: "#424242" }}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <h1 id='siteName' className = 'heading'>RateMyDorm</h1>
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    
     <div className='container-fluid' style={{ backgroundImage:`url(${pic4})`}}>
         <div className='col text-center'>
           <div className='row-md-6'>
