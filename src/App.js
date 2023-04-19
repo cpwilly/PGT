@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Router } from "react-router-dom";
 import DisplayPage from "./pages/DisplayPage";
 import FilterPage from "./pages/FilterPage";
 import Layout from "./pages/Layout";
@@ -13,11 +13,9 @@ export function App({user, signOut}) {
     <BrowserRouter>
       <Button onClick={signOut}>Sign out</Button>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<FilterPage setSelected={setSelected}/>} />
-          <Route path="DisplayPage" element={<DisplayPage name={selected}/>} />
-          <Route path="*" element={<NoPage />} />
-        </Route>
+        <Route index element={<FilterPage setSelected={setSelected} />} />
+        <Route path="DisplayPage" element={<DisplayPage name={selected} />} />
+        <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>
   );
