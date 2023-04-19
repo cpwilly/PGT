@@ -36,7 +36,7 @@ export default function DisplayPage(props) {
   let data = databaseReceive(props.name);
 
   return (
-    <div>
+    <div className='bod'>
       <DormName dormName={props.name}/>
       <AggregatedReviews rating={data.rating} numReviews={data.numReviews} numEach={data.numEach}/>
       <Table reviews={data.reviews}/>
