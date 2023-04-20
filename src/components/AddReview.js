@@ -14,7 +14,7 @@ import Box from '@mui/material/Box';
 // number of bathrooms
 // description
 // rating
-
+requester = new DataRequester();
 
 export default function AddReview(props) {
   const [open, setOpen] = React.useState(false);
@@ -45,6 +45,19 @@ export default function AddReview(props) {
 
   /* add API call in this function */
   const databaseSend = () => {
+    requester.postData(DataType.Review, new Review({
+      //Unsure if this is the correct JSON object
+      "dormName": props.dormName,
+      "date": new Date(),
+      "numResidents": residents,
+      "numBathrooms": bathrooms,
+      "description": description,
+      "rating": rating,
+      "userEmail": props.email
+    })
+  );
+
+  // also need to update dorm ratings count
     console.log(residents);
     console.log(bathrooms);
     console.log(description);

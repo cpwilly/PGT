@@ -5,38 +5,25 @@ import Table from '../components/Table';
 import { Auth } from 'aws-amplify';
 import { useEffect } from 'react';
 
-function databaseReceive(name) {
+requester = new DataRequester();
+
+// Might need to refactor to take into account await methods
+function databaseReceive(name){
+  jsonDorm = await requester.getData(DataType.Dorm, name);
+  jsonReviews = await requester.getData(DataType.Review, name)
   let data = {
-    name: name,
-    rating: 3.7,
-    numReviews: 309,
-    ones: 102,
-    twos: 56,
-    threes: 12,
-    fours: 77,
-    fives: 59,
-    wouldRoomAgain: true,
-    reviews: [
-      {
-        dormName: 'Taplin',
-        date: '4/17/23',
-        numResidents: 4,
-        numBathrooms: 2,
-        description: 'Shit ton of drain flies',
-        rating: 1,
-        userEmail: 'josh@case.edu'
-      },
-      {
-        dormName: 'Taplin',
-        date: '4/17/23',
-        numResidents: 4,
-        numBathrooms: 2,
-        description: 'Shit ton of drain flies',
-        rating: 4,
-        userEmail: 'carson@case.edu'
-      }
-    ]
-  };
+    name: jsonDorm.name,
+    rating: jsonDorm.rating,
+    numReviews: jsonReviews.length,
+    ones: jsonDorm.ones,
+    twos: jsonDorm.twos,
+    threes: jsonDorm.threes,
+    fours: jsonDorm.fours,
+    fives: jsonDorm.fives,
+    numEach: jsonDorm.numEach,
+    wouldRoomAgain: jsonDorm.wouldRoomAgain,
+    reviews: jsonReviews
+  }; 
 
   return data;
 }
