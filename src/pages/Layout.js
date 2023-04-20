@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-const Layout = () => {
+const Layout = (props) => {
   return (
     <>
       <nav>
@@ -15,7 +15,7 @@ const Layout = () => {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 <h1 id='siteName' className='heading'>RateMyDorm</h1>
               </Typography>
-              <Button color="inherit">Login</Button>
+              <Button onClick={props.sOut} color="inherit">Sign Out</Button>
             </Toolbar>
           </AppBar>
         </Box>
