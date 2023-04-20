@@ -47,11 +47,13 @@ export default function AddReview(props) {
   const databaseSend = () => {
     requester.postData(DataType.Review, new Review({
       //Unsure if this is the correct JSON object
-      "Body": description,
-      "Date": new Date(),
-      "Residents": residents,
-      "Bathrooms": bathrooms,
-      "Rating": rating
+      "dormName": props.dormName,
+      "date": new Date(),
+      "numResidents": residents,
+      "numBathrooms": bathrooms,
+      "description": description,
+      "rating": rating,
+      "userEmail": props.email
     })
   );
 

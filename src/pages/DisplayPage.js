@@ -8,12 +8,19 @@ requester = new DataRequester();
 // Might need to refactor to take into account await methods
 function databaseReceive(name){
   jsonDorm = await requester.getData(DataType.Dorm, name);
+  jsonReviews = await requester.getData(DataType.Review, name)
   let data = {
     name: jsonDorm.name,
     rating: jsonDorm.rating,
-    numReviews: jsonDorm.numReviews,
+    numReviews: jsonReviews.length,
+    ones: jsonDorm.ones,
+    twos: jsonDorm.twos,
+    threes: jsonDorm.threes,
+    fours: jsonDorm.fours,
+    fives: jsonDorm.fives,
     numEach: jsonDorm.numEach,
-    reviews: jsonDorm.reviews,
+    wouldRoomAgain: jsonDorm.wouldRoomAgain,
+    reviews: jsonReviews
   }; 
 
   return data;

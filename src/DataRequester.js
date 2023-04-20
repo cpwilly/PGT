@@ -5,15 +5,15 @@ import { Account } from './models';
 
 // This is a GET request. We pass in a DataType to choose where our get comes from
 // If we don't the method will fail
-async function getData(DataType, name) {
+async function getData(DataType, tag) {
     try{
         // Need to test to ensure ENUMS work as expected
         const models;
         if(DataType == DataType.Dorm){
-            models = await DataStore.query(Dorm, (c) => c.name.eq(name));
+            models = await DataStore.query(Dorm, (c) => c.name.eq(tag));
         }
         else if (DataType == DataType.Review){
-            models = await DataStore.query(Review);
+            models = await DataStore.query(Review, (c) => c.dorm.eq(tag));
         }
         else if (DataType == DataType.Account){
             models = await DataStore.query(Account);
@@ -38,25 +38,6 @@ async function postData(dataType, JsonObject){
         console.log(Error);
     }
 }
-
-//Ex JsonObject:
-/*
-    new Dorm({
-		"Name": "Lorem ipsum dolor sit amet",
-		"Year": "Lorem ipsum dolor sit amet",
-		"NumResidents": NumPeople.ONE,
-		"NumBathrooms": 1020,
-		"Kitchen": true,
-		"Refrigerator": true,
-		"Microwave": true,
-		"AirConditioning": true,
-		"CommunityBathroom": true,
-		"CommunityMicrowave": true,
-		"CommunityKitchen": true,
-		"Community": Community.CEDARMAGNOLIA
-	})
-*/
-
 
 //This is a DELETE request.
 async function deleteData(dataType, dataId){
