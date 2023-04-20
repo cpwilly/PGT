@@ -42,11 +42,12 @@ function databaseReceive(name){
 
 export default function DisplayPage(props) {
   let data = databaseReceive(props.name);
+  let numEach = [data.ones, data.twos, data.threes, data.fours, data.fives];
 
   return (
     <div className='bod'>
       <DormName dormName={props.name}/>
-      <AggregatedReviews rating={data.rating} numReviews={data.numReviews} numEach={data.numEach}/>
+      <AggregatedReviews rating={data.rating} numReviews={data.numReviews} numEach={numEach}/>
       <Table reviews={data.reviews}/>
     </div>
   );

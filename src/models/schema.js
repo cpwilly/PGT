@@ -31,28 +31,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "accountID": {
-                    "name": "accountID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "Account": {
-                    "name": "Account",
-                    "isArray": false,
-                    "type": {
-                        "model": "Account"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetNames": [
-                            "accountID"
-                        ]
-                    }
-                },
                 "Rating": {
                     "name": "Rating",
                     "isArray": false,
@@ -71,6 +49,20 @@ export const schema = {
                     "name": "numResidents",
                     "isArray": false,
                     "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "numLikes": {
+                    "name": "numLikes",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "accountEmail": {
+                    "name": "accountEmail",
+                    "isArray": false,
+                    "type": "AWSEmail",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -97,15 +89,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byAccount",
-                        "fields": [
-                            "accountID"
-                        ]
-                    }
                 },
                 {
                     "type": "auth",
@@ -156,6 +139,20 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "imageURL": {
+                    "name": "imageURL",
+                    "isArray": false,
+                    "type": "AWSURL",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "totalRatings": {
+                    "name": "totalRatings",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -197,92 +194,10 @@ export const schema = {
                     }
                 }
             ]
-        },
-        "Account": {
-            "name": "Account",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "Email": {
-                    "name": "Email",
-                    "isArray": false,
-                    "type": "AWSEmail",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "ReviewCount": {
-                    "name": "ReviewCount",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "Reviews": {
-                    "name": "Reviews",
-                    "isArray": true,
-                    "type": {
-                        "model": "Review"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": [
-                            "Account"
-                        ]
-                    }
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Accounts",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
-                }
-            ]
         }
     },
     "enums": {},
     "nonModels": {},
-    "codegenVersion": "3.3.6",
-    "version": "2a0d08050674730a5dbb4de9ca39d3f0"
+    "codegenVersion": "3.4.0",
+    "version": "faed1c31701fd57e8f2214ef6ca510af"
 };

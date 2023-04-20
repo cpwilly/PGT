@@ -4,10 +4,9 @@ import { schema } from './schema';
 
 
 
-const { Review, Dorm, Account } = initSchema(schema);
+const { Review, Dorm } = initSchema(schema);
 
 export {
   Review,
-  Dorm,
-  Account
+  Dorm
 };
