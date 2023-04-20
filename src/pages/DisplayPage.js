@@ -57,7 +57,7 @@ export default function DisplayPage(props) {
   return (
     <div className='bod'>
       <DormName dormName={props.name} />
-      <AggregatedReviews email={userInfo.attributes.email} rating={data.rating} numReviews={data.numReviews} numEach={numEach} />
+      <AggregatedReviews email={userInfo.attributes.email} rating={data.rating} numReviews={data.numReviews} numEach={numEach} dormName={props.name}/>
       <Table reviews={data.reviews} />
     </div>
   );

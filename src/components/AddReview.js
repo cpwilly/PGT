@@ -50,6 +50,7 @@ export default function AddReview(props) {
     console.log(description);
     console.log(rating);
     console.log(props.email);
+    console.log(props.dormName);
   }
 
   const handleResidentsChange = (newValue) => {
