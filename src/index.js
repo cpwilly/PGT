@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import App from './App';
 import config from './aws-exports';
 import { Amplify } from 'aws-amplify';
@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AmplifyProvider>
-      <App />
+          <App />
     </AmplifyProvider>
   </React.StrictMode>
 );

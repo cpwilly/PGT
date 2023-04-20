@@ -22,12 +22,12 @@ const options = ["Alumni",
     "Triangle Towers"];
 
 function DropdownForm(props) {
-    let navigate = useNavigate();
+   let navigate = useNavigate();
 
   const [selected, setSelected] = useState(options[0]);
   const submit = () => {
     props.setSelected(selected);
-    navigate('DisplayPage');
+   navigate('DisplayPage');
   };
   return (
     <>
@@ -36,6 +36,7 @@ function DropdownForm(props) {
           <Select
             value={selected} 
             onChange={(e) => setSelected(e.target.value)}
+            style={{ background : 'white'}}
           >
             {options.map((value) => (
               <MenuItem value={value} key={value}>
