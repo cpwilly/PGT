@@ -17,12 +17,16 @@ export declare type DormUpdateFormInputValues = {
     Name?: string;
     numReviews?: number;
     ratings?: number;
+    imageURL?: string;
+    totalRatings?: number;
     STJ?: boolean;
 };
 export declare type DormUpdateFormValidationValues = {
     Name?: ValidationFunction<string>;
     numReviews?: ValidationFunction<number>;
     ratings?: ValidationFunction<number>;
+    imageURL?: ValidationFunction<string>;
+    totalRatings?: ValidationFunction<number>;
     STJ?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
@@ -31,6 +35,8 @@ export declare type DormUpdateFormOverridesProps = {
     Name?: PrimitiveOverrideProps<TextFieldProps>;
     numReviews?: PrimitiveOverrideProps<TextFieldProps>;
     ratings?: PrimitiveOverrideProps<TextFieldProps>;
+    imageURL?: PrimitiveOverrideProps<TextFieldProps>;
+    totalRatings?: PrimitiveOverrideProps<TextFieldProps>;
     STJ?: PrimitiveOverrideProps<CheckboxFieldProps>;
 } & EscapeHatchProps;
 export declare type DormUpdateFormProps = React.PropsWithChildren<{

@@ -16,11 +16,15 @@ export declare type DormCreateFormInputValues = {
     Name?: string;
     numReviews?: number;
     ratings?: number;
+    imageURL?: string;
+    totalRatings?: number;
 };
 export declare type DormCreateFormValidationValues = {
     Name?: ValidationFunction<string>;
     numReviews?: ValidationFunction<number>;
     ratings?: ValidationFunction<number>;
+    imageURL?: ValidationFunction<string>;
+    totalRatings?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type DormCreateFormOverridesProps = {
@@ -28,6 +32,8 @@ export declare type DormCreateFormOverridesProps = {
     Name?: PrimitiveOverrideProps<TextFieldProps>;
     numReviews?: PrimitiveOverrideProps<TextFieldProps>;
     ratings?: PrimitiveOverrideProps<TextFieldProps>;
+    imageURL?: PrimitiveOverrideProps<TextFieldProps>;
+    totalRatings?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type DormCreateFormProps = React.PropsWithChildren<{
     overrides?: DormCreateFormOverridesProps | undefined | null;

@@ -36,6 +36,6 @@ export { default as ReviewCard } from "./ReviewCard";
 export { default as ActionCard } from "./ActionCard";
 export { default as studioTheme } from "./studioTheme";
 export { default as DormCreateForm } from "./DormCreateForm";
-export { default as AccountUpdateForm } from "./AccountUpdateForm";
-export { default as AccountCreateForm } from "./AccountCreateForm";
 export { default as DormUpdateForm } from "./DormUpdateForm";
+export { default as ReviewCreateForm } from "./ReviewCreateForm";
+export { default as ReviewUpdateForm } from "./ReviewUpdateForm";

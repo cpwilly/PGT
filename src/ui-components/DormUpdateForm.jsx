@@ -20,7 +20,7 @@ import { DataStore } from "aws-amplify";
 export default function DormUpdateForm(props) {
   const {
     id: idProp,
-    dorm,
+    dorm: dormModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -33,11 +33,17 @@ export default function DormUpdateForm(props) {
     Name: "",
     numReviews: "",
     ratings: "",
+    imageURL: "",
+    totalRatings: "",
     STJ: false,
   };
   const [Name, setName] = React.useState(initialValues.Name);
   const [numReviews, setNumReviews] = React.useState(initialValues.numReviews);
   const [ratings, setRatings] = React.useState(initialValues.ratings);
+  const [imageURL, setImageURL] = React.useState(initialValues.imageURL);
+  const [totalRatings, setTotalRatings] = React.useState(
+    initialValues.totalRatings
+  );
   const [STJ, setSTJ] = React.useState(initialValues.STJ);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
@@ -47,22 +53,28 @@ export default function DormUpdateForm(props) {
     setName(cleanValues.Name);
     setNumReviews(cleanValues.numReviews);
     setRatings(cleanValues.ratings);
+    setImageURL(cleanValues.imageURL);
+    setTotalRatings(cleanValues.totalRatings);
     setSTJ(cleanValues.STJ);
     setErrors({});
   };
-  const [dormRecord, setDormRecord] = React.useState(dorm);
+  const [dormRecord, setDormRecord] = React.useState(dormModelProp);
   React.useEffect(() => {
     const queryData = async () => {
-      const record = idProp ? await DataStore.query(Dorm, idProp) : dorm;
+      const record = idProp
+        ? await DataStore.query(Dorm, idProp)
+        : dormModelProp;
       setDormRecord(record);
     };
     queryData();
-  }, [idProp, dorm]);
+  }, [idProp, dormModelProp]);
   React.useEffect(resetStateValues, [dormRecord]);
   const validations = {
     Name: [],
     numReviews: [],
     ratings: [],
+    imageURL: [{ type: "URL" }],
+    totalRatings: [],
     STJ: [],
   };
   const runValidationTasks = async (
@@ -94,6 +106,8 @@ export default function DormUpdateForm(props) {
           Name,
           numReviews,
           ratings,
+          imageURL,
+          totalRatings,
           STJ,
         };
         const validationResponses = await Promise.all(
@@ -128,6 +142,8 @@ export default function DormUpdateForm(props) {
             Name: modelFields.Name,
             numReviews: modelFields.numReviews,
             ratings: modelFields.ratings,
+            imageURL: modelFields.imageURL,
+            totalRatings: modelFields.totalRatings,
           };
           await DataStore.save(
             Dorm.copyOf(dormRecord, (updated) => {
@@ -158,6 +174,8 @@ export default function DormUpdateForm(props) {
               Name: value,
               numReviews,
               ratings,
+              imageURL,
+              totalRatings,
               STJ,
             };
             const result = onChange(modelFields);
@@ -189,6 +207,8 @@ export default function DormUpdateForm(props) {
               Name,
               numReviews: value,
               ratings,
+              imageURL,
+              totalRatings,
               STJ,
             };
             const result = onChange(modelFields);
@@ -220,6 +240,8 @@ export default function DormUpdateForm(props) {
               Name,
               numReviews,
               ratings: value,
+              imageURL,
+              totalRatings,
               STJ,
             };
             const result = onChange(modelFields);
@@ -235,6 +257,68 @@ export default function DormUpdateForm(props) {
         hasError={errors.ratings?.hasError}
         {...getOverrideProps(overrides, "ratings")}
       ></TextField>
+      <TextField
+        label="Image url"
+        isRequired={false}
+        isReadOnly={false}
+        value={imageURL}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              Name,
+              numReviews,
+              ratings,
+              imageURL: value,
+              totalRatings,
+              STJ,
+            };
+            const result = onChange(modelFields);
+            value = result?.imageURL ?? value;
+          }
+          if (errors.imageURL?.hasError) {
+            runValidationTasks("imageURL", value);
+          }
+          setImageURL(value);
+        }}
+        onBlur={() => runValidationTasks("imageURL", imageURL)}
+        errorMessage={errors.imageURL?.errorMessage}
+        hasError={errors.imageURL?.hasError}
+        {...getOverrideProps(overrides, "imageURL")}
+      ></TextField>
+      <TextField
+        label="Total ratings"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={totalRatings}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              Name,
+              numReviews,
+              ratings,
+              imageURL,
+              totalRatings: value,
+              STJ,
+            };
+            const result = onChange(modelFields);
+            value = result?.totalRatings ?? value;
+          }
+          if (errors.totalRatings?.hasError) {
+            runValidationTasks("totalRatings", value);
+          }
+          setTotalRatings(value);
+        }}
+        onBlur={() => runValidationTasks("totalRatings", totalRatings)}
+        errorMessage={errors.totalRatings?.errorMessage}
+        hasError={errors.totalRatings?.hasError}
+        {...getOverrideProps(overrides, "totalRatings")}
+      ></TextField>
       <CheckboxField
         label="STJ"
         name="fieldName"
@@ -248,6 +332,8 @@ export default function DormUpdateForm(props) {
               Name,
               numReviews,
               ratings,
+              imageURL,
+              totalRatings,
               STJ: value,
             };
             const result = onChange(modelFields);
@@ -274,7 +360,7 @@ export default function DormUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || dorm)}
+          isDisabled={!(idProp || dormModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -286,7 +372,7 @@ export default function DormUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || dorm) ||
+              !(idProp || dormModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

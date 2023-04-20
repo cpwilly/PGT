@@ -26,21 +26,31 @@ export default function DormCreateForm(props) {
     Name: "",
     numReviews: "",
     ratings: "",
+    imageURL: "",
+    totalRatings: "",
   };
   const [Name, setName] = React.useState(initialValues.Name);
   const [numReviews, setNumReviews] = React.useState(initialValues.numReviews);
   const [ratings, setRatings] = React.useState(initialValues.ratings);
+  const [imageURL, setImageURL] = React.useState(initialValues.imageURL);
+  const [totalRatings, setTotalRatings] = React.useState(
+    initialValues.totalRatings
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setName(initialValues.Name);
     setNumReviews(initialValues.numReviews);
     setRatings(initialValues.ratings);
+    setImageURL(initialValues.imageURL);
+    setTotalRatings(initialValues.totalRatings);
     setErrors({});
   };
   const validations = {
     Name: [],
     numReviews: [],
     ratings: [],
+    imageURL: [{ type: "URL" }],
+    totalRatings: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -71,6 +81,8 @@ export default function DormCreateForm(props) {
           Name,
           numReviews,
           ratings,
+          imageURL,
+          totalRatings,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -128,6 +140,8 @@ export default function DormCreateForm(props) {
               Name: value,
               numReviews,
               ratings,
+              imageURL,
+              totalRatings,
             };
             const result = onChange(modelFields);
             value = result?.Name ?? value;
@@ -158,6 +172,8 @@ export default function DormCreateForm(props) {
               Name,
               numReviews: value,
               ratings,
+              imageURL,
+              totalRatings,
             };
             const result = onChange(modelFields);
             value = result?.numReviews ?? value;
@@ -188,6 +204,8 @@ export default function DormCreateForm(props) {
               Name,
               numReviews,
               ratings: value,
+              imageURL,
+              totalRatings,
             };
             const result = onChange(modelFields);
             value = result?.ratings ?? value;
@@ -201,6 +219,66 @@ export default function DormCreateForm(props) {
         errorMessage={errors.ratings?.errorMessage}
         hasError={errors.ratings?.hasError}
         {...getOverrideProps(overrides, "ratings")}
+      ></TextField>
+      <TextField
+        label="Image url"
+        isRequired={false}
+        isReadOnly={false}
+        value={imageURL}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              Name,
+              numReviews,
+              ratings,
+              imageURL: value,
+              totalRatings,
+            };
+            const result = onChange(modelFields);
+            value = result?.imageURL ?? value;
+          }
+          if (errors.imageURL?.hasError) {
+            runValidationTasks("imageURL", value);
+          }
+          setImageURL(value);
+        }}
+        onBlur={() => runValidationTasks("imageURL", imageURL)}
+        errorMessage={errors.imageURL?.errorMessage}
+        hasError={errors.imageURL?.hasError}
+        {...getOverrideProps(overrides, "imageURL")}
+      ></TextField>
+      <TextField
+        label="Total ratings"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={totalRatings}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              Name,
+              numReviews,
+              ratings,
+              imageURL,
+              totalRatings: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.totalRatings ?? value;
+          }
+          if (errors.totalRatings?.hasError) {
+            runValidationTasks("totalRatings", value);
+          }
+          setTotalRatings(value);
+        }}
+        onBlur={() => runValidationTasks("totalRatings", totalRatings)}
+        errorMessage={errors.totalRatings?.errorMessage}
+        hasError={errors.totalRatings?.hasError}
+        {...getOverrideProps(overrides, "totalRatings")}
       ></TextField>
       <Flex
         justifyContent="space-between"
