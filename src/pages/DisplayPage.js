@@ -10,18 +10,19 @@ requester = new DataRequester();
 // Might need to refactor to take into account await methods
 function databaseReceive(name){
   jsonDorm = await requester.getData(DataType.Dorm, name);
-  jsonReviews = await requester.getData(DataType.Review, name)
+  jsonReviews = await requester.getData(DataType.Review, name);
+  let totalRating = jsonDorm.fives.length * 5 + jsonDorm.fours.length * 4 + jsonDorm.threes.length * 3
+                    + jsonDorm.twos.length * 2 + jsonDorm.ones.length;
+  
   let data = {
     name: jsonDorm.name,
-    rating: jsonDorm.rating,
+    rating: (totalRating / jsonReviews.length), //Needs to be calculated
     numReviews: jsonReviews.length,
     ones: jsonDorm.ones,
     twos: jsonDorm.twos,
     threes: jsonDorm.threes,
     fours: jsonDorm.fours,
     fives: jsonDorm.fives,
-    numEach: jsonDorm.numEach,
-    wouldRoomAgain: jsonDorm.wouldRoomAgain,
     reviews: jsonReviews
   }; 
 

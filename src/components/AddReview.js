@@ -43,27 +43,28 @@ export default function AddReview(props) {
     handleClose();
   }
 
-  /* add API call in this function */
   const databaseSend = () => {
-    requester.postData(DataType.Review, new Review({
-      //Unsure if this is the correct JSON object
-      "dormName": props.dormName,
-      "date": new Date(),
-      "numResidents": residents,
-      "numBathrooms": bathrooms,
-      "description": description,
-      "rating": rating,
-      "userEmail": props.email
-    })
-  );
+    jsonUserReviews = await requester.getData(DataType.Reviews, props.email);
+    const isSameDorm = (element) => element.dormName == props.dormName;
 
-  // also need to update dorm ratings count
-    console.log(residents);
-    console.log(bathrooms);
-    console.log(description);
-    console.log(rating);
-    console.log(props.email);
-    console.log(props.dormName);
+    if(jsonUserReviews.length < 3 && !jsonUserReviews.some(isSameDorm)){
+      requester.postData(DataType.Review, new Review({
+        //Unsure if this is the correct JSON object
+        "dormName": props.dormName,
+        "date": new Date(),
+        "wouldRoomAgain": true,
+        "numResidents": residents,
+        "numBathrooms": bathrooms,
+        "description": description,
+        "rating": rating,
+        "numLikes": 0,
+        "userEmail": props.email
+      })
+    );
+  
+      dorm = await requester.getData(DataType.Dorm, props.dormName);
+      await requester.addRating(DataType.Dorm, dorm, rating);
+    }
   }
 
   const handleResidentsChange = (newValue) => {
