@@ -48,16 +48,12 @@ export default function Review(props) {
             </Typography>
           </CardContent>
         </Grid>
+        <Grid xs={1}>&nbsp;</Grid>
+        <Grid xs={1}>&nbsp;</Grid>
+        <Grid xs={1}>&nbsp;</Grid>
         <Grid xs={1}></Grid>
         <Grid xs={1}></Grid>
-        <Grid xs={1}>
-          <ThumbUpOffAltIcon />
-        </Grid>
-        <Grid xs={1}>1</Grid>
-        <Grid xs={1}>
-          <ThumbDownOffAltIcon />
-        </Grid>
-        <Grid xs={1}>1</Grid>
+        <Grid xs={1}></Grid>
       </Grid>
     </Card>
   );
