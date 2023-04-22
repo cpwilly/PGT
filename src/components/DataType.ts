@@ -1,4 +1,4 @@
-enum DataType {
+enum DATATYPE {
     Dorm = "Dorm",
     Review = "Review",
 }

@@ -12,7 +12,7 @@ import Review from '../models/index'
 // Might need to refactor to take into account await methods
 function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {
   let jsonDorm = jsonDormsPromise[0];
-  let jsonReviews = jsonReviewsPromise[0];
+  let jsonReviews = jsonReviewsPromise;
   let totalRating = jsonDorm.fives.length * 5 + jsonDorm.fours.length * 4 + jsonDorm.threes.length * 3
     + jsonDorm.twos.length * 2 + jsonDorm.ones.length;
   console.log('jsonDorm: ');
@@ -25,7 +25,7 @@ function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {
     // rating: (totalRating / jsonReviews.length), //Needs to be calculated
     // numReviews: jsonReviews.length,
     rating: 5, //Needs to be calculated
-    numReviews: 150,
+    numReviews: 301,
     ones: jsonDorm.ones,
     twos: jsonDorm.twos,
     threes: jsonDorm.threes,
@@ -54,12 +54,12 @@ export default function DisplayPage(props) {
   const [data, setData] = React.useState({
     name: 'toast',
     rating: 5,
-    numReviews: 390,
-    ones: 107,
-    twos: 20,
-    threes: 205,
-    fours: 40,
-    fives: 50,
+    numReviews: 1000,
+    ones: 69,
+    twos: 69,
+    threes: 69,
+    fours: 69,
+    fives: 69,
     reviews: 0
   });
   let numEach = [data.fives, data.fours, data.threes, data.twos, data.ones];
@@ -67,6 +67,7 @@ export default function DisplayPage(props) {
 
   useEffect(() => {
     const fetchData = async () => {
+
       const jsonDormsPromise = await getData(DataType.Dorm, props.name);
       const jsonReviewsPromise = await getData(DataType.Review, props.name);
       const info = await Auth.currentUserInfo();

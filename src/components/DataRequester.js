@@ -1,18 +1,22 @@
 import { DataStore } from '@aws-amplify/datastore';
 import { Dorm } from '../models/index.js';
 import { Review } from '../models/index.js';
-import * as DT from './DataType.js';
+import DataType from './DataType.js';
 
 // This is a GET request. We pass in a DataType to choose where our get comes from
 // If we don't the method will fail
-export async function getData(DataType, tag) {
+export async function getData(Type, tag) {
     try {
         // Need to test to ensure ENUMS work as expected
+
+        console.log(DataType);
+        console.log(DataType.Review);
+
         var models;
-        if (DataType === DT.Dorm) {
+        if (Type === DataType.Dorm) {
             models = await DataStore.query(Dorm, (c) => c.name.eq(tag));
         }
-        else if (DataType === DT.Review) {
+        else if (Type === DataType.Review) {
             models = await DataStore.query(Review, (c) => c.dormName.eq(tag));
         }
         return await models;
