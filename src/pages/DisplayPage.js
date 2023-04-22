@@ -5,63 +5,82 @@ import DormName from '../components/DormName';
 import Table from '../components/Table';
 import { Auth } from 'aws-amplify';
 import { useEffect } from 'react';
-import DataRequester from '../components/DataRequester'
+import { getData } from '../components/DataRequester'
 import DataType from '../components/DataType'
 import Review from '../models/index'
 
 // Might need to refactor to take into account await methods
-async function databaseReceive(name) {
-    let jsonDormsPromise = await DataRequester.getData(DataType.Dorm, name);
-    let jsonReviewsPromise = await DataRequester.getData(DataType.Review, name);
-    let jsonDorm = await jsonDormsPromise.json();
-    let jsonReviews = await jsonReviewsPromise.json();
-  let totalRating = await jsonDorm.fives.length * 5 + jsonDorm.fours.length * 4 + jsonDorm.threes.length * 3
-        + jsonDorm.twos.length * 2 + jsonDorm.ones.length;
-
+function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {
+  let jsonDorm = jsonDormsPromise[0];
+  let jsonReviews = jsonReviewsPromise[0];
+  let totalRating = jsonDorm.fives.length * 5 + jsonDorm.fours.length * 4 + jsonDorm.threes.length * 3
+    + jsonDorm.twos.length * 2 + jsonDorm.ones.length;
+  console.log('jsonDorm: ');
+  console.log(jsonDorm);
+  console.log('jsonReviews: ');
+  console.log(jsonReviews);
 
   let data = {
     name: jsonDorm.name,
-    rating: (totalRating / jsonReviews.length), //Needs to be calculated
-    numReviews: jsonReviews.length,
+    // rating: (totalRating / jsonReviews.length), //Needs to be calculated
+    // numReviews: jsonReviews.length,
+    rating: 5, //Needs to be calculated
+    numReviews: 150,
     ones: jsonDorm.ones,
     twos: jsonDorm.twos,
     threes: jsonDorm.threes,
     fours: jsonDorm.fours,
-      fives: jsonDorm.fives,
-      reviews: JSON.stringify(jsonReviews),
-  }; 
+    fives: jsonDorm.fives,
+    reviews: JSON.stringify(jsonReviews)
+  };
 
-    return data;
+  console.log('data: ')
+  console.log(data);
+  return data;
 
-    // <Table reviews={data.reviews} />
-    /*{data.reviews.map((Review, index) => {
-    return (
-        <div key={index}>
-            <h2>review: {Review}</h2>
-            <hr />
-        </div>
-        );
-        })}*/
+  // <Table reviews={data.reviews} />
+  /*{data.reviews.map((Review, index) => {
+  return (
+      <div key={index}>
+          <h2>review: {Review}</h2>
+          <hr />
+      </div>
+      );
+      })}*/
 
 }
 
-export default async function DisplayPage(props) {
-  let data = await databaseReceive(props.name);
-  let numEach = [data.ones, data.twos, data.threes, data.fours, data.fives];
-  const [userInfo, setUserInfo] = React.useState({attributes: {email: 'test@test.com'}});
+export default function DisplayPage(props) {
+  const [data, setData] = React.useState({
+    name: 'toast',
+    rating: 5,
+    numReviews: 390,
+    ones: 107,
+    twos: 20,
+    threes: 205,
+    fours: 40,
+    fives: 50,
+    reviews: 0
+  });
+  let numEach = [data.fives, data.fours, data.threes, data.twos, data.ones];
+  const [userInfo, setUserInfo] = React.useState({ attributes: { email: 'test@test.com' } });
 
   useEffect(() => {
-    const fetchData = /* async */ () => {
-      const info = /*await*/ Auth.currentUserInfo()
+    const fetchData = async () => {
+      const jsonDormsPromise = await getData(DataType.Dorm, props.name);
+      const jsonReviewsPromise = await getData(DataType.Review, props.name);
+      const info = await Auth.currentUserInfo();
+      const data = databaseReceive(props.name, jsonDormsPromise, jsonReviewsPromise);
       setUserInfo(info);
+      setData(data);
     }
     fetchData();
-  }, [setUserInfo])
+  }, [setUserInfo, setData, props.name])
 
   return (
     <div className='bod'>
       <DormName dormName={props.name} />
-      <AggregatedReviews email={userInfo.attributes.email} rating={data.rating} numReviews={data.numReviews} numEach={numEach} dormName={props.name}/>
+      <AggregatedReviews email={userInfo.attributes.email} numReviews={data.numReviews} rating={data.rating} numEach={numEach} dormName={props.name}/>
       <Table reviews={data.reviews} />
     </div>
   );

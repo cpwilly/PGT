@@ -1,17 +1,18 @@
 import { DataStore } from '@aws-amplify/datastore';
 import { Dorm } from '../models/index.js';
 import { Review } from '../models/index.js';
+import * as DT from './DataType.js';
 
 // This is a GET request. We pass in a DataType to choose where our get comes from
 // If we don't the method will fail
-async function getData(DataType, tag) {
+export async function getData(DataType, tag) {
     try {
         // Need to test to ensure ENUMS work as expected
         var models;
-        if (DataType == DataType.Dorm) {
+        if (DataType === DT.Dorm) {
             models = await DataStore.query(Dorm, (c) => c.name.eq(tag));
         }
-        else if (DataType == DataType.Review) {
+        else if (DataType === DT.Review) {
             models = await DataStore.query(Review, (c) => c.dormName.eq(tag));
         }
         return await models;
@@ -48,7 +49,7 @@ async function deleteData(dataType, dataId) {
 //This is a PUT request (i.e. an update request)
 async function addRating(dataType, CURRENT_ITEM, rating) {
     /* Models in DataStore are immutable. To update a record you must use the copyOf function
- to apply updates to the item’s fields rather than mutating the instance directly */
+ to apply updates to the itemï¿½s fields rather than mutating the instance directly */
     try {
         switch (rating) {
             case 1:
