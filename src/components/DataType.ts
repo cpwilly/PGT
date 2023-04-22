@@ -1,5 +1,4 @@
-enum DataType{
+enum DataType {
     Dorm = "Dorm",
     Review = "Review",
-    Account = "Account",
 }

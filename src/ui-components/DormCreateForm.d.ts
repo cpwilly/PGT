@@ -13,27 +13,30 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type DormCreateFormInputValues = {
-    Name?: string;
-    numReviews?: number;
-    ratings?: number;
-    imageURL?: string;
-    totalRatings?: number;
+    name?: string;
+    ones?: number;
+    twos?: number;
+    threes?: number;
+    fours?: number;
+    fives?: number;
 };
 export declare type DormCreateFormValidationValues = {
-    Name?: ValidationFunction<string>;
-    numReviews?: ValidationFunction<number>;
-    ratings?: ValidationFunction<number>;
-    imageURL?: ValidationFunction<string>;
-    totalRatings?: ValidationFunction<number>;
+    name?: ValidationFunction<string>;
+    ones?: ValidationFunction<number>;
+    twos?: ValidationFunction<number>;
+    threes?: ValidationFunction<number>;
+    fours?: ValidationFunction<number>;
+    fives?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type DormCreateFormOverridesProps = {
     DormCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    Name?: PrimitiveOverrideProps<TextFieldProps>;
-    numReviews?: PrimitiveOverrideProps<TextFieldProps>;
-    ratings?: PrimitiveOverrideProps<TextFieldProps>;
-    imageURL?: PrimitiveOverrideProps<TextFieldProps>;
-    totalRatings?: PrimitiveOverrideProps<TextFieldProps>;
+    name?: PrimitiveOverrideProps<TextFieldProps>;
+    ones?: PrimitiveOverrideProps<TextFieldProps>;
+    twos?: PrimitiveOverrideProps<TextFieldProps>;
+    threes?: PrimitiveOverrideProps<TextFieldProps>;
+    fours?: PrimitiveOverrideProps<TextFieldProps>;
+    fives?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type DormCreateFormProps = React.PropsWithChildren<{
     overrides?: DormCreateFormOverridesProps | undefined | null;

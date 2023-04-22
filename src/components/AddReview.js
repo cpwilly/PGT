@@ -9,14 +9,16 @@ import Rating from './Rating';
 import ResidentsDropdown from './ResidentsDropdown';
 import BathroomsDropdown from './BathroomsDropdown';
 import Box from '@mui/material/Box';
+import DataRequester from './DataRequester';
+import DataType from './DataType';
+import { Review } from '../models/index.js'
 
 // number of residents
 // number of bathrooms
 // description
 // rating
-requester = new DataRequester();
 
-export default function AddReview(props) {
+export default async function AddReview(props) {
   const [open, setOpen] = React.useState(false);
   const [residents, setResidents] = React.useState('');
   const [bathrooms, setBathrooms] = React.useState('');
@@ -43,8 +45,9 @@ export default function AddReview(props) {
     handleClose();
   }
 
-  const databaseSend = () => {
-    jsonUserReviews = await requester.getData(DataType.Reviews, props.email);
+    const databaseSend = async () => {
+    let requester = new DataRequester();
+    let jsonUserReviews = await requester.getData(DataType.Reviews, props.email);
     const isSameDorm = (element) => element.dormName == props.dormName;
 
     if(jsonUserReviews.length < 3 && !jsonUserReviews.some(isSameDorm)){
@@ -62,7 +65,7 @@ export default function AddReview(props) {
       })
     );
   
-      dorm = await requester.getData(DataType.Dorm, props.dormName);
+      let dorm = await requester.getData(DataType.Dorm, props.dormName);
       await requester.addRating(DataType.Dorm, dorm, rating);
     }
   }

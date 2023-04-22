@@ -23,34 +23,36 @@ export default function DormCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    Name: "",
-    numReviews: "",
-    ratings: "",
-    imageURL: "",
-    totalRatings: "",
+    name: "",
+    ones: "",
+    twos: "",
+    threes: "",
+    fours: "",
+    fives: "",
   };
-  const [Name, setName] = React.useState(initialValues.Name);
-  const [numReviews, setNumReviews] = React.useState(initialValues.numReviews);
-  const [ratings, setRatings] = React.useState(initialValues.ratings);
-  const [imageURL, setImageURL] = React.useState(initialValues.imageURL);
-  const [totalRatings, setTotalRatings] = React.useState(
-    initialValues.totalRatings
-  );
+  const [name, setName] = React.useState(initialValues.name);
+  const [ones, setOnes] = React.useState(initialValues.ones);
+  const [twos, setTwos] = React.useState(initialValues.twos);
+  const [threes, setThrees] = React.useState(initialValues.threes);
+  const [fours, setFours] = React.useState(initialValues.fours);
+  const [fives, setFives] = React.useState(initialValues.fives);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setName(initialValues.Name);
-    setNumReviews(initialValues.numReviews);
-    setRatings(initialValues.ratings);
-    setImageURL(initialValues.imageURL);
-    setTotalRatings(initialValues.totalRatings);
+    setName(initialValues.name);
+    setOnes(initialValues.ones);
+    setTwos(initialValues.twos);
+    setThrees(initialValues.threes);
+    setFours(initialValues.fours);
+    setFives(initialValues.fives);
     setErrors({});
   };
   const validations = {
-    Name: [],
-    numReviews: [],
-    ratings: [],
-    imageURL: [{ type: "URL" }],
-    totalRatings: [],
+    name: [],
+    ones: [],
+    twos: [],
+    threes: [],
+    fours: [],
+    fives: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -78,11 +80,12 @@ export default function DormCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          Name,
-          numReviews,
-          ratings,
-          imageURL,
-          totalRatings,
+          name,
+          ones,
+          twos,
+          threes,
+          fours,
+          fives,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -132,153 +135,195 @@ export default function DormCreateForm(props) {
         label="Name"
         isRequired={false}
         isReadOnly={false}
-        value={Name}
+        value={name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              Name: value,
-              numReviews,
-              ratings,
-              imageURL,
-              totalRatings,
+              name: value,
+              ones,
+              twos,
+              threes,
+              fours,
+              fives,
             };
             const result = onChange(modelFields);
-            value = result?.Name ?? value;
+            value = result?.name ?? value;
           }
-          if (errors.Name?.hasError) {
-            runValidationTasks("Name", value);
+          if (errors.name?.hasError) {
+            runValidationTasks("name", value);
           }
           setName(value);
         }}
-        onBlur={() => runValidationTasks("Name", Name)}
-        errorMessage={errors.Name?.errorMessage}
-        hasError={errors.Name?.hasError}
-        {...getOverrideProps(overrides, "Name")}
+        onBlur={() => runValidationTasks("name", name)}
+        errorMessage={errors.name?.errorMessage}
+        hasError={errors.name?.hasError}
+        {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
-        label="Num reviews"
+        label="Ones"
         isRequired={false}
         isReadOnly={false}
         type="number"
         step="any"
-        value={numReviews}
+        value={ones}
         onChange={(e) => {
           let value = isNaN(parseInt(e.target.value))
             ? e.target.value
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              Name,
-              numReviews: value,
-              ratings,
-              imageURL,
-              totalRatings,
+              name,
+              ones: value,
+              twos,
+              threes,
+              fours,
+              fives,
             };
             const result = onChange(modelFields);
-            value = result?.numReviews ?? value;
+            value = result?.ones ?? value;
           }
-          if (errors.numReviews?.hasError) {
-            runValidationTasks("numReviews", value);
+          if (errors.ones?.hasError) {
+            runValidationTasks("ones", value);
           }
-          setNumReviews(value);
+          setOnes(value);
         }}
-        onBlur={() => runValidationTasks("numReviews", numReviews)}
-        errorMessage={errors.numReviews?.errorMessage}
-        hasError={errors.numReviews?.hasError}
-        {...getOverrideProps(overrides, "numReviews")}
+        onBlur={() => runValidationTasks("ones", ones)}
+        errorMessage={errors.ones?.errorMessage}
+        hasError={errors.ones?.hasError}
+        {...getOverrideProps(overrides, "ones")}
       ></TextField>
       <TextField
-        label="Ratings"
+        label="Twos"
         isRequired={false}
         isReadOnly={false}
         type="number"
         step="any"
-        value={ratings}
+        value={twos}
         onChange={(e) => {
           let value = isNaN(parseInt(e.target.value))
             ? e.target.value
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              Name,
-              numReviews,
-              ratings: value,
-              imageURL,
-              totalRatings,
+              name,
+              ones,
+              twos: value,
+              threes,
+              fours,
+              fives,
             };
             const result = onChange(modelFields);
-            value = result?.ratings ?? value;
+            value = result?.twos ?? value;
           }
-          if (errors.ratings?.hasError) {
-            runValidationTasks("ratings", value);
+          if (errors.twos?.hasError) {
+            runValidationTasks("twos", value);
           }
-          setRatings(value);
+          setTwos(value);
         }}
-        onBlur={() => runValidationTasks("ratings", ratings)}
-        errorMessage={errors.ratings?.errorMessage}
-        hasError={errors.ratings?.hasError}
-        {...getOverrideProps(overrides, "ratings")}
+        onBlur={() => runValidationTasks("twos", twos)}
+        errorMessage={errors.twos?.errorMessage}
+        hasError={errors.twos?.hasError}
+        {...getOverrideProps(overrides, "twos")}
       ></TextField>
       <TextField
-        label="Image url"
-        isRequired={false}
-        isReadOnly={false}
-        value={imageURL}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              Name,
-              numReviews,
-              ratings,
-              imageURL: value,
-              totalRatings,
-            };
-            const result = onChange(modelFields);
-            value = result?.imageURL ?? value;
-          }
-          if (errors.imageURL?.hasError) {
-            runValidationTasks("imageURL", value);
-          }
-          setImageURL(value);
-        }}
-        onBlur={() => runValidationTasks("imageURL", imageURL)}
-        errorMessage={errors.imageURL?.errorMessage}
-        hasError={errors.imageURL?.hasError}
-        {...getOverrideProps(overrides, "imageURL")}
-      ></TextField>
-      <TextField
-        label="Total ratings"
+        label="Threes"
         isRequired={false}
         isReadOnly={false}
         type="number"
         step="any"
-        value={totalRatings}
+        value={threes}
         onChange={(e) => {
           let value = isNaN(parseInt(e.target.value))
             ? e.target.value
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              Name,
-              numReviews,
-              ratings,
-              imageURL,
-              totalRatings: value,
+              name,
+              ones,
+              twos,
+              threes: value,
+              fours,
+              fives,
             };
             const result = onChange(modelFields);
-            value = result?.totalRatings ?? value;
+            value = result?.threes ?? value;
           }
-          if (errors.totalRatings?.hasError) {
-            runValidationTasks("totalRatings", value);
+          if (errors.threes?.hasError) {
+            runValidationTasks("threes", value);
           }
-          setTotalRatings(value);
+          setThrees(value);
         }}
-        onBlur={() => runValidationTasks("totalRatings", totalRatings)}
-        errorMessage={errors.totalRatings?.errorMessage}
-        hasError={errors.totalRatings?.hasError}
-        {...getOverrideProps(overrides, "totalRatings")}
+        onBlur={() => runValidationTasks("threes", threes)}
+        errorMessage={errors.threes?.errorMessage}
+        hasError={errors.threes?.hasError}
+        {...getOverrideProps(overrides, "threes")}
+      ></TextField>
+      <TextField
+        label="Fours"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={fours}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              name,
+              ones,
+              twos,
+              threes,
+              fours: value,
+              fives,
+            };
+            const result = onChange(modelFields);
+            value = result?.fours ?? value;
+          }
+          if (errors.fours?.hasError) {
+            runValidationTasks("fours", value);
+          }
+          setFours(value);
+        }}
+        onBlur={() => runValidationTasks("fours", fours)}
+        errorMessage={errors.fours?.errorMessage}
+        hasError={errors.fours?.hasError}
+        {...getOverrideProps(overrides, "fours")}
+      ></TextField>
+      <TextField
+        label="Fives"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={fives}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              name,
+              ones,
+              twos,
+              threes,
+              fours,
+              fives: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.fives ?? value;
+          }
+          if (errors.fives?.hasError) {
+            runValidationTasks("fives", value);
+          }
+          setFives(value);
+        }}
+        onBlur={() => runValidationTasks("fives", fives)}
+        errorMessage={errors.fives?.errorMessage}
+        hasError={errors.fives?.hasError}
+        {...getOverrideProps(overrides, "fives")}
       ></TextField>
       <Flex
         justifyContent="space-between"

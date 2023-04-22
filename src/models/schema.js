@@ -10,36 +10,36 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "Description": {
-                    "name": "Description",
+                "description": {
+                    "name": "description",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "Date": {
-                    "name": "Date",
+                "date": {
+                    "name": "date",
                     "isArray": false,
                     "type": "AWSDate",
                     "isRequired": false,
                     "attributes": []
                 },
-                "WouldRoomAgain": {
-                    "name": "WouldRoomAgain",
+                "wouldRoomAgain": {
+                    "name": "wouldRoomAgain",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
                 },
-                "Rating": {
-                    "name": "Rating",
+                "rating": {
+                    "name": "rating",
                     "isArray": false,
                     "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
-                "Bathroom": {
-                    "name": "Bathroom",
+                "numBathrooms": {
+                    "name": "numBathrooms",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -55,14 +55,21 @@ export const schema = {
                 "numLikes": {
                     "name": "numLikes",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
-                "accountEmail": {
-                    "name": "accountEmail",
+                "userEmail": {
+                    "name": "userEmail",
                     "isArray": false,
                     "type": "AWSEmail",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "dormName": {
+                    "name": "dormName",
+                    "isArray": false,
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -118,36 +125,43 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "Name": {
-                    "name": "Name",
+                "name": {
+                    "name": "name",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "numReviews": {
-                    "name": "numReviews",
+                "ones": {
+                    "name": "ones",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
-                "ratings": {
-                    "name": "ratings",
+                "twos": {
+                    "name": "twos",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
-                "imageURL": {
-                    "name": "imageURL",
+                "threes": {
+                    "name": "threes",
                     "isArray": false,
-                    "type": "AWSURL",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
-                "totalRatings": {
-                    "name": "totalRatings",
+                "fours": {
+                    "name": "fours",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "fives": {
+                    "name": "fives",
                     "isArray": false,
                     "type": "Int",
                     "isRequired": false,
@@ -199,5 +213,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.0",
-    "version": "faed1c31701fd57e8f2214ef6ca510af"
+    "version": "fe062ec8ba1cbc0631d705701e46b0e3"
 };

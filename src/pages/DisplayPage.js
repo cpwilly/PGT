@@ -1,19 +1,24 @@
 import * as React from 'react';
+import ReactDOM from "react-dom";
 import AggregatedReviews from '../components/AggregatedReviews';
 import DormName from '../components/DormName';
 import Table from '../components/Table';
 import { Auth } from 'aws-amplify';
 import { useEffect } from 'react';
-
-requester = new DataRequester();
+import DataRequester from '../components/DataRequester'
+import DataType from '../components/DataType'
+import Review from '../models/index'
 
 // Might need to refactor to take into account await methods
-function databaseReceive(name){
-  jsonDorm = await requester.getData(DataType.Dorm, name);
-  jsonReviews = await requester.getData(DataType.Review, name);
-  let totalRating = jsonDorm.fives.length * 5 + jsonDorm.fours.length * 4 + jsonDorm.threes.length * 3
-                    + jsonDorm.twos.length * 2 + jsonDorm.ones.length;
-  
+async function databaseReceive(name) {
+    let jsonDormsPromise = await DataRequester.getData(DataType.Dorm, name);
+    let jsonReviewsPromise = await DataRequester.getData(DataType.Review, name);
+    let jsonDorm = await jsonDormsPromise.json();
+    let jsonReviews = await jsonReviewsPromise.json();
+  let totalRating = await jsonDorm.fives.length * 5 + jsonDorm.fours.length * 4 + jsonDorm.threes.length * 3
+        + jsonDorm.twos.length * 2 + jsonDorm.ones.length;
+
+
   let data = {
     name: jsonDorm.name,
     rating: (totalRating / jsonReviews.length), //Needs to be calculated
@@ -22,21 +27,32 @@ function databaseReceive(name){
     twos: jsonDorm.twos,
     threes: jsonDorm.threes,
     fours: jsonDorm.fours,
-    fives: jsonDorm.fives,
-    reviews: jsonReviews
+      fives: jsonDorm.fives,
+      reviews: JSON.stringify(jsonReviews),
   }; 
 
-  return data;
+    return data;
+
+    // <Table reviews={data.reviews} />
+    /*{data.reviews.map((Review, index) => {
+    return (
+        <div key={index}>
+            <h2>review: {Review}</h2>
+            <hr />
+        </div>
+        );
+        })}*/
+
 }
 
-export default function DisplayPage(props) {
-  let data = databaseReceive(props.name);
+export default async function DisplayPage(props) {
+  let data = await databaseReceive(props.name);
   let numEach = [data.ones, data.twos, data.threes, data.fours, data.fives];
   const [userInfo, setUserInfo] = React.useState({attributes: {email: 'test@test.com'}});
 
   useEffect(() => {
-    const fetchData = async () => {
-      const info = await Auth.currentUserInfo()
+    const fetchData = /* async */ () => {
+      const info = /*await*/ Auth.currentUserInfo()
       setUserInfo(info);
     }
     fetchData();

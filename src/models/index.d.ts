@@ -12,14 +12,15 @@ type EagerReview = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly Description?: string | null;
-  readonly Date?: string | null;
-  readonly WouldRoomAgain?: boolean | null;
-  readonly Rating?: number | null;
-  readonly Bathroom?: string | null;
+  readonly description?: string | null;
+  readonly date?: string | null;
+  readonly wouldRoomAgain?: boolean | null;
+  readonly rating?: number | null;
+  readonly numBathrooms?: string | null;
   readonly numResidents?: number | null;
-  readonly numLikes?: string | null;
-  readonly accountEmail?: string | null;
+  readonly numLikes?: number | null;
+  readonly userEmail?: string | null;
+  readonly dormName?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -30,14 +31,15 @@ type LazyReview = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly Description?: string | null;
-  readonly Date?: string | null;
-  readonly WouldRoomAgain?: boolean | null;
-  readonly Rating?: number | null;
-  readonly Bathroom?: string | null;
+  readonly description?: string | null;
+  readonly date?: string | null;
+  readonly wouldRoomAgain?: boolean | null;
+  readonly rating?: number | null;
+  readonly numBathrooms?: string | null;
   readonly numResidents?: number | null;
-  readonly numLikes?: string | null;
-  readonly accountEmail?: string | null;
+  readonly numLikes?: number | null;
+  readonly userEmail?: string | null;
+  readonly dormName?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -54,11 +56,12 @@ type EagerDorm = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly Name?: string | null;
-  readonly numReviews?: number | null;
-  readonly ratings?: number | null;
-  readonly imageURL?: string | null;
-  readonly totalRatings?: number | null;
+  readonly name?: string | null;
+  readonly ones?: number | null;
+  readonly twos?: number | null;
+  readonly threes?: number | null;
+  readonly fours?: number | null;
+  readonly fives?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -69,11 +72,12 @@ type LazyDorm = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly Name?: string | null;
-  readonly numReviews?: number | null;
-  readonly ratings?: number | null;
-  readonly imageURL?: string | null;
-  readonly totalRatings?: number | null;
+  readonly name?: string | null;
+  readonly ones?: number | null;
+  readonly twos?: number | null;
+  readonly threes?: number | null;
+  readonly fours?: number | null;
+  readonly fives?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
