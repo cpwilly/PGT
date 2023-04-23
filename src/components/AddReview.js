@@ -47,11 +47,11 @@ export default async function AddReview(props) {
 
     const databaseSend = async () => {
     let requester = new DataRequester();
-    let jsonUserReviews = await requester.getData(DataType.Reviews, props.email);
+    let jsonUserReviews = await requester.getReview(props.email);
     const isSameDorm = (element) => element.dormName == props.dormName;
 
     if(jsonUserReviews.length < 3 && !jsonUserReviews.some(isSameDorm)){
-      requester.postData(DataType.Review, new Review({
+      requester.postData(new Review({
         //Unsure if this is the correct JSON object
         "dormName": props.dormName,
         "date": new Date(),
@@ -65,8 +65,8 @@ export default async function AddReview(props) {
       })
     );
   
-      let dorm = await requester.getData(DataType.Dorm, props.dormName);
-      await requester.addRating(DataType.Dorm, dorm, rating);
+      let dorm = await requester.getDorm(props.dormName);
+      await requester.addRating(dorm, rating);
     }
   }
 

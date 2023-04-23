@@ -14,39 +14,39 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ReviewUpdateFormInputValues = {
-    description?: string;
+    dormName?: string;
     date?: string;
     wouldRoomAgain?: boolean;
-    rating?: number;
-    numBathrooms?: string;
     numResidents?: number;
+    numBathrooms?: string;
+    description?: string;
+    rating?: number;
     numLikes?: number;
     userEmail?: string;
-    dormName?: string;
 };
 export declare type ReviewUpdateFormValidationValues = {
-    description?: ValidationFunction<string>;
+    dormName?: ValidationFunction<string>;
     date?: ValidationFunction<string>;
     wouldRoomAgain?: ValidationFunction<boolean>;
-    rating?: ValidationFunction<number>;
-    numBathrooms?: ValidationFunction<string>;
     numResidents?: ValidationFunction<number>;
+    numBathrooms?: ValidationFunction<string>;
+    description?: ValidationFunction<string>;
+    rating?: ValidationFunction<number>;
     numLikes?: ValidationFunction<number>;
     userEmail?: ValidationFunction<string>;
-    dormName?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ReviewUpdateFormOverridesProps = {
     ReviewUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    description?: PrimitiveOverrideProps<TextFieldProps>;
+    dormName?: PrimitiveOverrideProps<TextFieldProps>;
     date?: PrimitiveOverrideProps<TextFieldProps>;
     wouldRoomAgain?: PrimitiveOverrideProps<SwitchFieldProps>;
-    rating?: PrimitiveOverrideProps<TextFieldProps>;
-    numBathrooms?: PrimitiveOverrideProps<TextFieldProps>;
     numResidents?: PrimitiveOverrideProps<TextFieldProps>;
+    numBathrooms?: PrimitiveOverrideProps<TextFieldProps>;
+    description?: PrimitiveOverrideProps<TextFieldProps>;
+    rating?: PrimitiveOverrideProps<TextFieldProps>;
     numLikes?: PrimitiveOverrideProps<TextFieldProps>;
     userEmail?: PrimitiveOverrideProps<TextFieldProps>;
-    dormName?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ReviewUpdateFormProps = React.PropsWithChildren<{
     overrides?: ReviewUpdateFormOverridesProps | undefined | null;

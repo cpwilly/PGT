@@ -12,15 +12,15 @@ type EagerReview = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly description?: string | null;
+  readonly dormName?: string | null;
   readonly date?: string | null;
   readonly wouldRoomAgain?: boolean | null;
-  readonly rating?: number | null;
-  readonly numBathrooms?: string | null;
   readonly numResidents?: number | null;
+  readonly numBathrooms?: string | null;
+  readonly description?: string | null;
+  readonly rating?: number | null;
   readonly numLikes?: number | null;
   readonly userEmail?: string | null;
-  readonly dormName?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -31,15 +31,15 @@ type LazyReview = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly description?: string | null;
+  readonly dormName?: string | null;
   readonly date?: string | null;
   readonly wouldRoomAgain?: boolean | null;
-  readonly rating?: number | null;
-  readonly numBathrooms?: string | null;
   readonly numResidents?: number | null;
+  readonly numBathrooms?: string | null;
+  readonly description?: string | null;
+  readonly rating?: number | null;
   readonly numLikes?: number | null;
   readonly userEmail?: string | null;
-  readonly dormName?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

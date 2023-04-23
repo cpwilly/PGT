@@ -18,6 +18,12 @@
       "auth": {
         "DormRatingApp": {},
         "dormratingapp3552ca75": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2tkpyqoad8nwq",
+          "type": "manual"
+        }
       }
     }
   }

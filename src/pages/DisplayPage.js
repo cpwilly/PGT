@@ -5,16 +5,15 @@ import DormName from '../components/DormName';
 import Table from '../components/Table';
 import { Auth } from 'aws-amplify';
 import { useEffect } from 'react';
-import { getData } from '../components/DataRequester'
-import DataType from '../components/DataType'
+import { getDorm, getReview } from '../components/DataRequester'
 import Review from '../models/index'
 
 // Might need to refactor to take into account await methods
 function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {
   let jsonDorm = jsonDormsPromise[0];
   let jsonReviews = jsonReviewsPromise[0];
-  let totalRating = jsonDorm.fives.length * 5 + jsonDorm.fours.length * 4 + jsonDorm.threes.length * 3
-    + jsonDorm.twos.length * 2 + jsonDorm.ones.length;
+  let totalRating = jsonDorm.fives * 5 + jsonDorm.fours * 4 + jsonDorm.threes * 3
+    + jsonDorm.twos * 2 + jsonDorm.ones;
   console.log('jsonDorm: ');
   console.log(jsonDorm);
   console.log('jsonReviews: ');
@@ -22,7 +21,7 @@ function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {
 
   let data = {
     name: jsonDorm.name,
-    // rating: (totalRating / jsonReviews.length), //Needs to be calculated
+    // rating: (totalRating / Object.keys(jsonReviews).length), //Needs to be calculated
     // numReviews: jsonReviews.length,
     rating: 5, //Needs to be calculated
     numReviews: 150,
@@ -67,8 +66,8 @@ export default function DisplayPage(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const jsonDormsPromise = await getData(DataType.Dorm, props.name);
-      const jsonReviewsPromise = await getData(DataType.Review, props.name);
+      const jsonDormsPromise = await getDorm(props.name);
+      const jsonReviewsPromise = await getReview(props.name);
       const info = await Auth.currentUserInfo();
       const data = databaseReceive(props.name, jsonDormsPromise, jsonReviewsPromise);
       setUserInfo(info);
