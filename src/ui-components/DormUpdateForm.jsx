@@ -20,7 +20,7 @@ import { DataStore } from "aws-amplify";
 export default function DormUpdateForm(props) {
   const {
     id: idProp,
-    dorm,
+    dorm: dormModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -30,39 +30,53 @@ export default function DormUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    Name: "",
-    numReviews: "",
-    ratings: "",
+    name: "",
+    ones: "",
+    twos: "",
+    threes: "",
+    fours: "",
+    fives: "",
     STJ: false,
   };
-  const [Name, setName] = React.useState(initialValues.Name);
-  const [numReviews, setNumReviews] = React.useState(initialValues.numReviews);
-  const [ratings, setRatings] = React.useState(initialValues.ratings);
+  const [name, setName] = React.useState(initialValues.name);
+  const [ones, setOnes] = React.useState(initialValues.ones);
+  const [twos, setTwos] = React.useState(initialValues.twos);
+  const [threes, setThrees] = React.useState(initialValues.threes);
+  const [fours, setFours] = React.useState(initialValues.fours);
+  const [fives, setFives] = React.useState(initialValues.fives);
   const [STJ, setSTJ] = React.useState(initialValues.STJ);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = dormRecord
       ? { ...initialValues, ...dormRecord }
       : initialValues;
-    setName(cleanValues.Name);
-    setNumReviews(cleanValues.numReviews);
-    setRatings(cleanValues.ratings);
+    setName(cleanValues.name);
+    setOnes(cleanValues.ones);
+    setTwos(cleanValues.twos);
+    setThrees(cleanValues.threes);
+    setFours(cleanValues.fours);
+    setFives(cleanValues.fives);
     setSTJ(cleanValues.STJ);
     setErrors({});
   };
-  const [dormRecord, setDormRecord] = React.useState(dorm);
+  const [dormRecord, setDormRecord] = React.useState(dormModelProp);
   React.useEffect(() => {
     const queryData = async () => {
-      const record = idProp ? await DataStore.query(Dorm, idProp) : dorm;
+      const record = idProp
+        ? await DataStore.query(Dorm, idProp)
+        : dormModelProp;
       setDormRecord(record);
     };
     queryData();
-  }, [idProp, dorm]);
+  }, [idProp, dormModelProp]);
   React.useEffect(resetStateValues, [dormRecord]);
   const validations = {
-    Name: [],
-    numReviews: [],
-    ratings: [],
+    name: [],
+    ones: [],
+    twos: [],
+    threes: [],
+    fours: [],
+    fives: [],
     STJ: [],
   };
   const runValidationTasks = async (
@@ -91,9 +105,12 @@ export default function DormUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          Name,
-          numReviews,
-          ratings,
+          name,
+          ones,
+          twos,
+          threes,
+          fours,
+          fives,
           STJ,
         };
         const validationResponses = await Promise.all(
@@ -125,9 +142,12 @@ export default function DormUpdateForm(props) {
             }
           });
           const modelFieldsToSave = {
-            Name: modelFields.Name,
-            numReviews: modelFields.numReviews,
-            ratings: modelFields.ratings,
+            name: modelFields.name,
+            ones: modelFields.ones,
+            twos: modelFields.twos,
+            threes: modelFields.threes,
+            fours: modelFields.fours,
+            fives: modelFields.fives,
           };
           await DataStore.save(
             Dorm.copyOf(dormRecord, (updated) => {
@@ -150,90 +170,201 @@ export default function DormUpdateForm(props) {
         label="Name"
         isRequired={false}
         isReadOnly={false}
-        value={Name}
+        value={name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              Name: value,
-              numReviews,
-              ratings,
+              name: value,
+              ones,
+              twos,
+              threes,
+              fours,
+              fives,
               STJ,
             };
             const result = onChange(modelFields);
-            value = result?.Name ?? value;
+            value = result?.name ?? value;
           }
-          if (errors.Name?.hasError) {
-            runValidationTasks("Name", value);
+          if (errors.name?.hasError) {
+            runValidationTasks("name", value);
           }
           setName(value);
         }}
-        onBlur={() => runValidationTasks("Name", Name)}
-        errorMessage={errors.Name?.errorMessage}
-        hasError={errors.Name?.hasError}
-        {...getOverrideProps(overrides, "Name")}
+        onBlur={() => runValidationTasks("name", name)}
+        errorMessage={errors.name?.errorMessage}
+        hasError={errors.name?.hasError}
+        {...getOverrideProps(overrides, "name")}
       ></TextField>
       <TextField
-        label="Num reviews"
+        label="Ones"
         isRequired={false}
         isReadOnly={false}
         type="number"
         step="any"
-        value={numReviews}
+        value={ones}
         onChange={(e) => {
           let value = isNaN(parseInt(e.target.value))
             ? e.target.value
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              Name,
-              numReviews: value,
-              ratings,
+              name,
+              ones: value,
+              twos,
+              threes,
+              fours,
+              fives,
               STJ,
             };
             const result = onChange(modelFields);
-            value = result?.numReviews ?? value;
+            value = result?.ones ?? value;
           }
-          if (errors.numReviews?.hasError) {
-            runValidationTasks("numReviews", value);
+          if (errors.ones?.hasError) {
+            runValidationTasks("ones", value);
           }
-          setNumReviews(value);
+          setOnes(value);
         }}
-        onBlur={() => runValidationTasks("numReviews", numReviews)}
-        errorMessage={errors.numReviews?.errorMessage}
-        hasError={errors.numReviews?.hasError}
-        {...getOverrideProps(overrides, "numReviews")}
+        onBlur={() => runValidationTasks("ones", ones)}
+        errorMessage={errors.ones?.errorMessage}
+        hasError={errors.ones?.hasError}
+        {...getOverrideProps(overrides, "ones")}
       ></TextField>
       <TextField
-        label="Ratings"
+        label="Twos"
         isRequired={false}
         isReadOnly={false}
         type="number"
         step="any"
-        value={ratings}
+        value={twos}
         onChange={(e) => {
           let value = isNaN(parseInt(e.target.value))
             ? e.target.value
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              Name,
-              numReviews,
-              ratings: value,
+              name,
+              ones,
+              twos: value,
+              threes,
+              fours,
+              fives,
               STJ,
             };
             const result = onChange(modelFields);
-            value = result?.ratings ?? value;
+            value = result?.twos ?? value;
           }
-          if (errors.ratings?.hasError) {
-            runValidationTasks("ratings", value);
+          if (errors.twos?.hasError) {
+            runValidationTasks("twos", value);
           }
-          setRatings(value);
+          setTwos(value);
         }}
-        onBlur={() => runValidationTasks("ratings", ratings)}
-        errorMessage={errors.ratings?.errorMessage}
-        hasError={errors.ratings?.hasError}
-        {...getOverrideProps(overrides, "ratings")}
+        onBlur={() => runValidationTasks("twos", twos)}
+        errorMessage={errors.twos?.errorMessage}
+        hasError={errors.twos?.hasError}
+        {...getOverrideProps(overrides, "twos")}
+      ></TextField>
+      <TextField
+        label="Threes"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={threes}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              name,
+              ones,
+              twos,
+              threes: value,
+              fours,
+              fives,
+              STJ,
+            };
+            const result = onChange(modelFields);
+            value = result?.threes ?? value;
+          }
+          if (errors.threes?.hasError) {
+            runValidationTasks("threes", value);
+          }
+          setThrees(value);
+        }}
+        onBlur={() => runValidationTasks("threes", threes)}
+        errorMessage={errors.threes?.errorMessage}
+        hasError={errors.threes?.hasError}
+        {...getOverrideProps(overrides, "threes")}
+      ></TextField>
+      <TextField
+        label="Fours"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={fours}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              name,
+              ones,
+              twos,
+              threes,
+              fours: value,
+              fives,
+              STJ,
+            };
+            const result = onChange(modelFields);
+            value = result?.fours ?? value;
+          }
+          if (errors.fours?.hasError) {
+            runValidationTasks("fours", value);
+          }
+          setFours(value);
+        }}
+        onBlur={() => runValidationTasks("fours", fours)}
+        errorMessage={errors.fours?.errorMessage}
+        hasError={errors.fours?.hasError}
+        {...getOverrideProps(overrides, "fours")}
+      ></TextField>
+      <TextField
+        label="Fives"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={fives}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              name,
+              ones,
+              twos,
+              threes,
+              fours,
+              fives: value,
+              STJ,
+            };
+            const result = onChange(modelFields);
+            value = result?.fives ?? value;
+          }
+          if (errors.fives?.hasError) {
+            runValidationTasks("fives", value);
+          }
+          setFives(value);
+        }}
+        onBlur={() => runValidationTasks("fives", fives)}
+        errorMessage={errors.fives?.errorMessage}
+        hasError={errors.fives?.hasError}
+        {...getOverrideProps(overrides, "fives")}
       ></TextField>
       <CheckboxField
         label="STJ"
@@ -245,9 +376,12 @@ export default function DormUpdateForm(props) {
           let value = e.target.checked;
           if (onChange) {
             const modelFields = {
-              Name,
-              numReviews,
-              ratings,
+              name,
+              ones,
+              twos,
+              threes,
+              fours,
+              fives,
               STJ: value,
             };
             const result = onChange(modelFields);
@@ -274,7 +408,7 @@ export default function DormUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || dorm)}
+          isDisabled={!(idProp || dormModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -286,7 +420,7 @@ export default function DormUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || dorm) ||
+              !(idProp || dormModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

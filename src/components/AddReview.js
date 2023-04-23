@@ -9,14 +9,17 @@ import Rating from './Rating';
 import ResidentsDropdown from './ResidentsDropdown';
 import BathroomsDropdown from './BathroomsDropdown';
 import Box from '@mui/material/Box';
+import DataRequester from './DataRequester';
+import DataType from './DataType';
+import { Review } from '../models/index.js'
+import { getDorm, getReview, postReview, addRating } from './DataRequester'
 
 // number of residents
 // number of bathrooms
 // description
 // rating
 
-
-export default function AddReview(props) {
+export default async function AddReview(props) {
   const [open, setOpen] = React.useState(false);
   const [residents, setResidents] = React.useState('');
   const [bathrooms, setBathrooms] = React.useState('');
@@ -42,14 +45,24 @@ export default function AddReview(props) {
     databaseSend();
     handleClose();
   }
+  const databaseSend = async () => {
+    //Do not currently have functionality to check review limits per account
+    postReview(new Review({
+      //Unsure if this is the correct JSON object
+      dormName: props.dormName,
+      date: new Date(),
+      wouldRoomAgain: true,
+      numResidents: residents,
+      numBathrooms: bathrooms,
+      description: description,
+      rating: rating,
+      numLikes: 0,
+      userEmail: props.email
+    })
+   );
 
-  /* add API call in this function */
-  const databaseSend = () => {
-    console.log(residents);
-    console.log(bathrooms);
-    console.log(description);
-    console.log(rating);
-    console.log(props.email);
+   let dorm = await getDorm(props.dormName);
+   await addRating(dorm, rating);
   }
 
   const handleResidentsChange = (newValue) => {

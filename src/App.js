@@ -8,7 +8,7 @@ import { withAuthenticator, Button } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 export function App({user, signOut}) {
-  const [selected, setSelected] = React.useState('Raymond');
+  const [selected, setSelected] = React.useState('Taplin');
   return (
     <BrowserRouter>
       <Routes>
