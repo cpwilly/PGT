@@ -29,7 +29,7 @@ export async function getReview(tag) {
 
 //This is a POST request. We pass in a DataType to choose where our post goes to
 //If we don't the method will fail
-async function postReview(JsonObject) {
+export async function postReview(JsonObject) {
     try {
         await DataStore.save(
             new Review({
@@ -42,7 +42,7 @@ async function postReview(JsonObject) {
 }
 
 //This is a DELETE request.
-async function deleteDorm(dataType, dataId) {
+export async function deleteDorm(dataType, dataId) {
     try {
         const modelToDelete = await DataStore.query(Dorm, dataId);
         DataStore.delete(modelToDelete);
@@ -52,7 +52,7 @@ async function deleteDorm(dataType, dataId) {
 }
 
 //This is a PUT request (i.e. an update request)
-async function addRating(CURRENT_ITEM, rating) {
+export async function addRating(CURRENT_ITEM, rating) {
     /* Models in DataStore are immutable. To update a record you must use the copyOf function
  to apply updates to the item�s fields rather than mutating the instance directly */
     try {

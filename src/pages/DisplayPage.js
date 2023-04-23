@@ -11,20 +11,24 @@ import Review from '../models/index'
 // Might need to refactor to take into account await methods
 function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {
   let jsonDorm = jsonDormsPromise[0];
-  let jsonReviews = jsonReviewsPromise[0];
+  let jsonReviews = jsonReviewsPromise;
   let totalRating = jsonDorm.fives * 5 + jsonDorm.fours * 4 + jsonDorm.threes * 3
-    + jsonDorm.twos * 2 + jsonDorm.ones;
+        + jsonDorm.twos * 2 + jsonDorm.ones;
+  let totalReviews = jsonDorm.fives + jsonDorm.fours + jsonDorm.threes + jsonDorm.twos + jsonDorm.ones;
+  // Can't divide by zero
+  if (totalReviews == 0) { var netTotalReviews = 1; }
+  else { var netTotalReviews = totalReviews}
   console.log('jsonDorm: ');
   console.log(jsonDorm);
   console.log('jsonReviews: ');
-  console.log(jsonReviews);
+  // console.log(jsonReviews);
 
   let data = {
     name: jsonDorm.name,
-    // rating: (totalRating / Object.keys(jsonReviews).length), //Needs to be calculated
-    // numReviews: jsonReviews.length,
-    rating: 5, //Needs to be calculated
-    numReviews: 150,
+    rating: (totalRating / netTotalReviews), //Needs to be calculated
+    numReviews: totalReviews,
+    // rating: 5, //Needs to be calculated
+    // numReviews: 150,
     ones: jsonDorm.ones,
     twos: jsonDorm.twos,
     threes: jsonDorm.threes,
