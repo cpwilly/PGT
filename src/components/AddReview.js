@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 import DataRequester from './DataRequester';
 import DataType from './DataType';
 import { Review } from '../models/index.js'
+import { useEffect } from 'react';
 import { getDorm, getReview, postReview, addRating } from './DataRequester'
 
 // number of residents
@@ -19,12 +20,39 @@ import { getDorm, getReview, postReview, addRating } from './DataRequester'
 // description
 // rating
 
-export default async function AddReview(props) {
+
+/*dormName: props.dormName,
+      date: new Date(),
+      wouldRoomAgain: true,
+      numResidents: residents,
+      numBathrooms: bathrooms,
+      description: description,
+      rating: rating,
+      numLikes: 0,
+      userEmail: props.email */
+function createRev(dormName, wouldRoomAgain, numResidents, numBathrooms, description, rating, numLikes, userEmail) {
+  let rev = {
+    dormName: dormName,
+    date: new Date().toISOString(),
+    wouldRoomAgain: wouldRoomAgain,
+    numResidents: numResidents,
+    numBathrooms: numBathrooms,
+    description: description,
+    rating: rating,
+    numLikes: numLikes,
+    userEmail: userEmail
+  };
+
+  return rev;
+}
+
+export default function AddReview(props) {
   const [open, setOpen] = React.useState(false);
-  const [residents, setResidents] = React.useState('');
+  const [residents, setResidents] = React.useState(-1);
   const [bathrooms, setBathrooms] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [rating, setRating] = React.useState(-1);
+  const [dbSend, setDbSend] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -32,7 +60,7 @@ export default async function AddReview(props) {
 
   const handleClose = () => {
     setOpen(false);
-    setResidents('');
+    setResidents(-1);
     setBathrooms('');
     setDescription('');
     setRating(-1);
@@ -42,28 +70,28 @@ export default async function AddReview(props) {
 
     // TODO: add form validation
 
-    databaseSend();
-    handleClose();
+    setDbSend(true);
   }
-  const databaseSend = async () => {
-    //Do not currently have functionality to check review limits per account
-    postReview(new Review({
-      //Unsure if this is the correct JSON object
-      dormName: props.dormName,
-      date: new Date(),
-      wouldRoomAgain: true,
-      numResidents: residents,
-      numBathrooms: bathrooms,
-      description: description,
-      rating: rating,
-      numLikes: 0,
-      userEmail: props.email
-    })
-   );
 
-   let dorm = await getDorm(props.dormName);
-   await addRating(dorm, rating);
-  }
+
+  useEffect(() => {
+    const databaseSend = async () => {
+      // Do not currently have functionality to check review limits per account
+
+      if(dbSend === true){
+        let rev = createRev(props.dormName, true, residents, bathrooms, description, rating, 0, props.email);
+        //console.log(rev);
+        postReview(rev);
+        handleClose();
+        setDbSend(false);
+      }
+      //  let dorm = await getDorm(props.dormName);
+      //  await addRating(dorm, rating);
+    }
+    databaseSend();
+  }, [dbSend, props.dormName, residents, bathrooms, description, rating, props.email])
+
+
 
   const handleResidentsChange = (newValue) => {
     setResidents(newValue);
@@ -95,10 +123,10 @@ export default async function AddReview(props) {
         <DialogTitle>Add Review</DialogTitle>
         <DialogContent>
           <Box sx={{ mt: 1 }}>
-            <ResidentsDropdown handleResidentsChange={handleResidentsChange}/>
+            <ResidentsDropdown handleResidentsChange={handleResidentsChange} />
           </Box>
           <Box sx={{ mt: 2 }}>
-            <BathroomsDropdown handleBathroomsChange={handleBathroomsChange}/>
+            <BathroomsDropdown handleBathroomsChange={handleBathroomsChange} />
           </Box>
           <TextField
             autoFocus
@@ -112,7 +140,7 @@ export default async function AddReview(props) {
             value={description}
             onChange={e => handleDescriptionChange(e)}
           />
-          <Rating handleRatingsChange={handleRatingsChange}/>
+          <Rating handleRatingsChange={handleRatingsChange} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

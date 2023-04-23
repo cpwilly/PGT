@@ -1,7 +1,7 @@
 type Review @model @auth(rules: [{allow: public}]) {
   id: ID!
   dormName: String
-  date: AWSDate
+  date: String
   wouldRoomAgain: Boolean
   numResidents: Int
   numBathrooms: String
