@@ -29,56 +29,56 @@ export default function ReviewCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    description: "",
+    dormName: "",
     date: "",
     wouldRoomAgain: false,
-    rating: "",
-    numBathrooms: "",
     numResidents: "",
+    numBathrooms: "",
+    description: "",
+    rating: "",
     numLikes: "",
     userEmail: "",
-    dormName: "",
   };
-  const [description, setDescription] = React.useState(
-    initialValues.description
-  );
+  const [dormName, setDormName] = React.useState(initialValues.dormName);
   const [date, setDate] = React.useState(initialValues.date);
   const [wouldRoomAgain, setWouldRoomAgain] = React.useState(
     initialValues.wouldRoomAgain
   );
-  const [rating, setRating] = React.useState(initialValues.rating);
-  const [numBathrooms, setNumBathrooms] = React.useState(
-    initialValues.numBathrooms
-  );
   const [numResidents, setNumResidents] = React.useState(
     initialValues.numResidents
   );
+  const [numBathrooms, setNumBathrooms] = React.useState(
+    initialValues.numBathrooms
+  );
+  const [description, setDescription] = React.useState(
+    initialValues.description
+  );
+  const [rating, setRating] = React.useState(initialValues.rating);
   const [numLikes, setNumLikes] = React.useState(initialValues.numLikes);
   const [userEmail, setUserEmail] = React.useState(initialValues.userEmail);
-  const [dormName, setDormName] = React.useState(initialValues.dormName);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setDescription(initialValues.description);
+    setDormName(initialValues.dormName);
     setDate(initialValues.date);
     setWouldRoomAgain(initialValues.wouldRoomAgain);
-    setRating(initialValues.rating);
-    setNumBathrooms(initialValues.numBathrooms);
     setNumResidents(initialValues.numResidents);
+    setNumBathrooms(initialValues.numBathrooms);
+    setDescription(initialValues.description);
+    setRating(initialValues.rating);
     setNumLikes(initialValues.numLikes);
     setUserEmail(initialValues.userEmail);
-    setDormName(initialValues.dormName);
     setErrors({});
   };
   const validations = {
-    description: [],
+    dormName: [],
     date: [],
     wouldRoomAgain: [],
-    rating: [],
-    numBathrooms: [],
     numResidents: [],
+    numBathrooms: [],
+    description: [],
+    rating: [],
     numLikes: [],
-    userEmail: [{ type: "Email" }],
-    dormName: [],
+    userEmail: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -106,15 +106,15 @@ export default function ReviewCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          description,
+          dormName,
           date,
           wouldRoomAgain,
-          rating,
-          numBathrooms,
           numResidents,
+          numBathrooms,
+          description,
+          rating,
           numLikes,
           userEmail,
-          dormName,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -161,36 +161,36 @@ export default function ReviewCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Description"
+        label="Dorm name"
         isRequired={false}
         isReadOnly={false}
-        value={description}
+        value={dormName}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              description: value,
+              dormName: value,
               date,
               wouldRoomAgain,
-              rating,
-              numBathrooms,
               numResidents,
+              numBathrooms,
+              description,
+              rating,
               numLikes,
               userEmail,
-              dormName,
             };
             const result = onChange(modelFields);
-            value = result?.description ?? value;
+            value = result?.dormName ?? value;
           }
-          if (errors.description?.hasError) {
-            runValidationTasks("description", value);
+          if (errors.dormName?.hasError) {
+            runValidationTasks("dormName", value);
           }
-          setDescription(value);
+          setDormName(value);
         }}
-        onBlur={() => runValidationTasks("description", description)}
-        errorMessage={errors.description?.errorMessage}
-        hasError={errors.description?.hasError}
-        {...getOverrideProps(overrides, "description")}
+        onBlur={() => runValidationTasks("dormName", dormName)}
+        errorMessage={errors.dormName?.errorMessage}
+        hasError={errors.dormName?.hasError}
+        {...getOverrideProps(overrides, "dormName")}
       ></TextField>
       <TextField
         label="Date"
@@ -202,15 +202,15 @@ export default function ReviewCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              description,
+              dormName,
               date: value,
               wouldRoomAgain,
-              rating,
-              numBathrooms,
               numResidents,
+              numBathrooms,
+              description,
+              rating,
               numLikes,
               userEmail,
-              dormName,
             };
             const result = onChange(modelFields);
             value = result?.date ?? value;
@@ -234,15 +234,15 @@ export default function ReviewCreateForm(props) {
           let value = e.target.checked;
           if (onChange) {
             const modelFields = {
-              description,
+              dormName,
               date,
               wouldRoomAgain: value,
-              rating,
-              numBathrooms,
               numResidents,
+              numBathrooms,
+              description,
+              rating,
               numLikes,
               userEmail,
-              dormName,
             };
             const result = onChange(modelFields);
             value = result?.wouldRoomAgain ?? value;
@@ -258,74 +258,6 @@ export default function ReviewCreateForm(props) {
         {...getOverrideProps(overrides, "wouldRoomAgain")}
       ></SwitchField>
       <TextField
-        label="Rating"
-        isRequired={false}
-        isReadOnly={false}
-        type="number"
-        step="any"
-        value={rating}
-        onChange={(e) => {
-          let value = isNaN(parseFloat(e.target.value))
-            ? e.target.value
-            : parseFloat(e.target.value);
-          if (onChange) {
-            const modelFields = {
-              description,
-              date,
-              wouldRoomAgain,
-              rating: value,
-              numBathrooms,
-              numResidents,
-              numLikes,
-              userEmail,
-              dormName,
-            };
-            const result = onChange(modelFields);
-            value = result?.rating ?? value;
-          }
-          if (errors.rating?.hasError) {
-            runValidationTasks("rating", value);
-          }
-          setRating(value);
-        }}
-        onBlur={() => runValidationTasks("rating", rating)}
-        errorMessage={errors.rating?.errorMessage}
-        hasError={errors.rating?.hasError}
-        {...getOverrideProps(overrides, "rating")}
-      ></TextField>
-      <TextField
-        label="Num bathrooms"
-        isRequired={false}
-        isReadOnly={false}
-        value={numBathrooms}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              description,
-              date,
-              wouldRoomAgain,
-              rating,
-              numBathrooms: value,
-              numResidents,
-              numLikes,
-              userEmail,
-              dormName,
-            };
-            const result = onChange(modelFields);
-            value = result?.numBathrooms ?? value;
-          }
-          if (errors.numBathrooms?.hasError) {
-            runValidationTasks("numBathrooms", value);
-          }
-          setNumBathrooms(value);
-        }}
-        onBlur={() => runValidationTasks("numBathrooms", numBathrooms)}
-        errorMessage={errors.numBathrooms?.errorMessage}
-        hasError={errors.numBathrooms?.hasError}
-        {...getOverrideProps(overrides, "numBathrooms")}
-      ></TextField>
-      <TextField
         label="Num residents"
         isRequired={false}
         isReadOnly={false}
@@ -338,15 +270,15 @@ export default function ReviewCreateForm(props) {
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              description,
+              dormName,
               date,
               wouldRoomAgain,
-              rating,
-              numBathrooms,
               numResidents: value,
+              numBathrooms,
+              description,
+              rating,
               numLikes,
               userEmail,
-              dormName,
             };
             const result = onChange(modelFields);
             value = result?.numResidents ?? value;
@@ -362,6 +294,106 @@ export default function ReviewCreateForm(props) {
         {...getOverrideProps(overrides, "numResidents")}
       ></TextField>
       <TextField
+        label="Num bathrooms"
+        isRequired={false}
+        isReadOnly={false}
+        value={numBathrooms}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              dormName,
+              date,
+              wouldRoomAgain,
+              numResidents,
+              numBathrooms: value,
+              description,
+              rating,
+              numLikes,
+              userEmail,
+            };
+            const result = onChange(modelFields);
+            value = result?.numBathrooms ?? value;
+          }
+          if (errors.numBathrooms?.hasError) {
+            runValidationTasks("numBathrooms", value);
+          }
+          setNumBathrooms(value);
+        }}
+        onBlur={() => runValidationTasks("numBathrooms", numBathrooms)}
+        errorMessage={errors.numBathrooms?.errorMessage}
+        hasError={errors.numBathrooms?.hasError}
+        {...getOverrideProps(overrides, "numBathrooms")}
+      ></TextField>
+      <TextField
+        label="Description"
+        isRequired={false}
+        isReadOnly={false}
+        value={description}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              dormName,
+              date,
+              wouldRoomAgain,
+              numResidents,
+              numBathrooms,
+              description: value,
+              rating,
+              numLikes,
+              userEmail,
+            };
+            const result = onChange(modelFields);
+            value = result?.description ?? value;
+          }
+          if (errors.description?.hasError) {
+            runValidationTasks("description", value);
+          }
+          setDescription(value);
+        }}
+        onBlur={() => runValidationTasks("description", description)}
+        errorMessage={errors.description?.errorMessage}
+        hasError={errors.description?.hasError}
+        {...getOverrideProps(overrides, "description")}
+      ></TextField>
+      <TextField
+        label="Rating"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={rating}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              dormName,
+              date,
+              wouldRoomAgain,
+              numResidents,
+              numBathrooms,
+              description,
+              rating: value,
+              numLikes,
+              userEmail,
+            };
+            const result = onChange(modelFields);
+            value = result?.rating ?? value;
+          }
+          if (errors.rating?.hasError) {
+            runValidationTasks("rating", value);
+          }
+          setRating(value);
+        }}
+        onBlur={() => runValidationTasks("rating", rating)}
+        errorMessage={errors.rating?.errorMessage}
+        hasError={errors.rating?.hasError}
+        {...getOverrideProps(overrides, "rating")}
+      ></TextField>
+      <TextField
         label="Num likes"
         isRequired={false}
         isReadOnly={false}
@@ -374,15 +406,15 @@ export default function ReviewCreateForm(props) {
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              description,
+              dormName,
               date,
               wouldRoomAgain,
-              rating,
-              numBathrooms,
               numResidents,
+              numBathrooms,
+              description,
+              rating,
               numLikes: value,
               userEmail,
-              dormName,
             };
             const result = onChange(modelFields);
             value = result?.numLikes ?? value;
@@ -406,15 +438,15 @@ export default function ReviewCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              description,
+              dormName,
               date,
               wouldRoomAgain,
-              rating,
-              numBathrooms,
               numResidents,
+              numBathrooms,
+              description,
+              rating,
               numLikes,
               userEmail: value,
-              dormName,
             };
             const result = onChange(modelFields);
             value = result?.userEmail ?? value;
@@ -428,38 +460,6 @@ export default function ReviewCreateForm(props) {
         errorMessage={errors.userEmail?.errorMessage}
         hasError={errors.userEmail?.hasError}
         {...getOverrideProps(overrides, "userEmail")}
-      ></TextField>
-      <TextField
-        label="Dorm name"
-        isRequired={false}
-        isReadOnly={false}
-        value={dormName}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              description,
-              date,
-              wouldRoomAgain,
-              rating,
-              numBathrooms,
-              numResidents,
-              numLikes,
-              userEmail,
-              dormName: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.dormName ?? value;
-          }
-          if (errors.dormName?.hasError) {
-            runValidationTasks("dormName", value);
-          }
-          setDormName(value);
-        }}
-        onBlur={() => runValidationTasks("dormName", dormName)}
-        errorMessage={errors.dormName?.errorMessage}
-        hasError={errors.dormName?.hasError}
-        {...getOverrideProps(overrides, "dormName")}
       ></TextField>
       <Flex
         justifyContent="space-between"

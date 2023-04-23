@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 import DataRequester from './DataRequester';
 import DataType from './DataType';
 import { Review } from '../models/index.js'
+import { getDorm, getReview, postReview, addRating } from './DataRequester'
 
 // number of residents
 // number of bathrooms
@@ -44,30 +45,24 @@ export default async function AddReview(props) {
     databaseSend();
     handleClose();
   }
+  const databaseSend = async () => {
+    //Do not currently have functionality to check review limits per account
+    postReview(new Review({
+      //Unsure if this is the correct JSON object
+      dormName: props.dormName,
+      date: new Date(),
+      wouldRoomAgain: true,
+      numResidents: residents,
+      numBathrooms: bathrooms,
+      description: description,
+      rating: rating,
+      numLikes: 0,
+      userEmail: props.email
+    })
+   );
 
-    const databaseSend = async () => {
-    let requester = new DataRequester();
-    let jsonUserReviews = await requester.getData(DataType.Reviews, props.email);
-    const isSameDorm = (element) => element.dormName == props.dormName;
-
-    if(jsonUserReviews.length < 3 && !jsonUserReviews.some(isSameDorm)){
-      requester.postData(DataType.Review, new Review({
-        //Unsure if this is the correct JSON object
-        "dormName": props.dormName,
-        "date": new Date(),
-        "wouldRoomAgain": true,
-        "numResidents": residents,
-        "numBathrooms": bathrooms,
-        "description": description,
-        "rating": rating,
-        "numLikes": 0,
-        "userEmail": props.email
-      })
-    );
-  
-      let dorm = await requester.getData(DataType.Dorm, props.dormName);
-      await requester.addRating(DataType.Dorm, dorm, rating);
-    }
+   let dorm = await getDorm(props.dormName);
+   await addRating(dorm, rating);
   }
 
   const handleResidentsChange = (newValue) => {

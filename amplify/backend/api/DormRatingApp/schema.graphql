@@ -1,14 +1,14 @@
 type Review @model @auth(rules: [{allow: public}]) {
   id: ID!
-  description: String
+  dormName: String
   date: AWSDate
   wouldRoomAgain: Boolean
-  rating: Float
-  numBathrooms: String
   numResidents: Int
+  numBathrooms: String
+  description: String
+  rating: Int
   numLikes: Int
-  userEmail: AWSEmail
-  dormName: String
+  userEmail: String
 }
 
 type Dorm @model @auth(rules: [{allow: public}]) {
