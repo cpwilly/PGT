@@ -27,13 +27,36 @@ export async function getReview(tag) {
 }
 
 
+/*
+    dormName: dormName,
+    date: new Date(),
+    wouldRoomAgain: wouldRoomAgain,
+    numResidents: numResidents,
+    numBathrooms: numBathrooms,
+    description: description,
+    rating: rating,
+    numLikes: numLikes,
+    userEmail: userEmail
+
+ */
+
 //This is a POST request. We pass in a DataType to choose where our post goes to
 //If we don't the method will fail
 export async function postReview(JsonObject) {
+    console.log('JsonObject: ')
+    console.log(JsonObject);
     try {
         await DataStore.save(
             new Review({
-                JsonObject
+                dormName: JsonObject.dormName,
+                date: JsonObject.date,
+                wouldRoomAgain: JsonObject.wouldRoomAgain,
+                numResidents: JsonObject.numResidents,
+                numBathrooms: JsonObject.numBathrooms,
+                description: JsonObject.description,
+                rating: JsonObject.rating,
+                numLikes: JsonObject.numLikes,
+                userEmail: JsonObject.userEmail
             })
         );
     } catch (Error) {
