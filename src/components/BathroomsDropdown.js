@@ -16,7 +16,7 @@ export default function BasicSelect(props) {
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth required={true}>
-        <InputLabel id="demo-simple-select-label">Bathrooms</InputLabel>
+        <InputLabel id="demo-simple-select-label">Number of bathrooms</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"

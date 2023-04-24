@@ -65,8 +65,19 @@ export default function AddReview(props) {
 
   const handleAdd = () => {
     // TODO add validation
-
-    props.setDbSend(true);
+    let message = '';
+    if (residents === -1)
+      message = message + 'Number of residents \n';
+    if (bathrooms === '')
+      message = message + 'Number of bathrooms \n';
+    if (description === '')
+      message = message + 'Description \n';
+    if (rating === -1)
+      message = message + 'Rating';
+    if (message === '')
+      props.setDbSend(true);
+    else 
+      alert('Please fill out the following fields: \n' + message);
   }
 
 
