@@ -1,12 +1,11 @@
 import * as React from 'react';
-import ReactDOM from "react-dom";
 import AggregatedReviews from '../components/AggregatedReviews';
 import DormName from '../components/DormName';
 import Table from '../components/Table';
 import { Auth } from 'aws-amplify';
 import { useEffect } from 'react';
-import { getDorm, getReview } from '../components/DataRequester'
-import Review from '../components/review';
+import { getDorm, getReview } from '../components/DataRequester';
+import Review from '../components/Review';
 
 // Might need to refactor to take into account await methods
 function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {

@@ -20,7 +20,7 @@ import { DataStore } from "aws-amplify";
 export default function DormUpdateForm(props) {
   const {
     id: idProp,
-    dorm: dormModelProp,
+    dorm,
     onSuccess,
     onError,
     onSubmit,
@@ -59,16 +59,14 @@ export default function DormUpdateForm(props) {
     setSTJ(cleanValues.STJ);
     setErrors({});
   };
-  const [dormRecord, setDormRecord] = React.useState(dormModelProp);
+  const [dormRecord, setDormRecord] = React.useState(dorm);
   React.useEffect(() => {
     const queryData = async () => {
-      const record = idProp
-        ? await DataStore.query(Dorm, idProp)
-        : dormModelProp;
+      const record = idProp ? await DataStore.query(Dorm, idProp) : dorm;
       setDormRecord(record);
     };
     queryData();
-  }, [idProp, dormModelProp]);
+  }, [idProp, dorm]);
   React.useEffect(resetStateValues, [dormRecord]);
   const validations = {
     name: [],
@@ -408,7 +406,7 @@ export default function DormUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || dormModelProp)}
+          isDisabled={!(idProp || dorm)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -420,7 +418,7 @@ export default function DormUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || dormModelProp) ||
+              !(idProp || dorm) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

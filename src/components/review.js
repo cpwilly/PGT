@@ -2,8 +2,6 @@ import * as React from 'react';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import { Box, CardContent, Typography } from '@mui/material';
-import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 export default function Review(props) {
   return (
