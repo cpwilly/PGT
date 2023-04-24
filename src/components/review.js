@@ -6,11 +6,16 @@ import { Box, CardContent, Typography } from '@mui/material';
 export default function Review(props) {
   function formatDate(date) {
     let formatted = "";
+    let year = "";
     let i = 0;
-    while (date.charAt(i) === '-' || (date.charAt(i) >= '0' && date.charAt(i) <= '9')) {
+    while (i < 4) 
+      year = year + date.charAt(i++);
+    i = 5;
+    if (date.charAt(i) === '0') 
+      i++;
+    while (date.charAt(i) === '-' || (date.charAt(i) >= '0' && date.charAt(i) <= '9')) 
       formatted = formatted + date.charAt(i++);
-    }
-    return formatted;
+    return formatted + "-" + year;
   }
   return (
     <Card sx={{ maxWidth: 800 }}>

@@ -11,6 +11,12 @@ function calculatePercentage(value, total){
     return percent + '%';
 }
 
+function pluralize(word, number) {
+    if (number === 1)
+        return word;
+    else return word + 's';
+}
+
 export default function AggregatedReviews(props) {
 
 
@@ -20,7 +26,7 @@ export default function AggregatedReviews(props) {
                 <div className='col-lg-8'>
                     <span className="heading">Dorm Rating</span>
                     <ReadOnlyRating rating={props.rating}/>
-                    <p>{Math.round(props.rating*100)/100} average based on {props.numReviews} reviews.</p>
+                    <p>{Math.round(props.rating*100)/100} star average based on {props.numReviews} {pluralize("review", props.numReviews)}.</p>
                 </div>
                 <div className='col-lg-4'>
                     <Box sx={{ pt: 2, ml: 12 }}>
