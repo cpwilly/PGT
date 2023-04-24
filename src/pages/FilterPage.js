@@ -4,7 +4,6 @@ import Second from '../components/Second';
 import Upper from '../components/Upper';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import pic4 from '../img/pic4.png';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
