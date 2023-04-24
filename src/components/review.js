@@ -17,6 +17,17 @@ export default function Review(props) {
       formatted = formatted + date.charAt(i++);
     return formatted + "-" + year;
   }
+
+
+  function boxColor(rating) {
+    let color = '#83BD7E';
+    if (rating === 3)
+      color = '#f5bd4e';
+    else if (rating === 2 || rating === 1)
+      color = '#f56262';
+    return color;
+  }
+
   return (
     <Card sx={{ maxWidth: 800 }}>
       <Grid container>
@@ -39,7 +50,7 @@ export default function Review(props) {
             <Box sx={{
               width: 60,
               height: 60,
-              backgroundColor: '#83BD7E',
+              backgroundColor: boxColor(props.rating),
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

@@ -42,7 +42,7 @@ export default function AggregatedReviews(props) {
                     </div>
                     <div className="middle">
                         <div className="bar-container">
-                            <div className="bar-5" style={{width: calculatePercentage(props.numEach[0], props.numReviews)}}></div>
+                            <div className="bar-4" style={{width: calculatePercentage(props.numEach[0], props.numReviews)}}></div>
                         </div>
                     </div>
                     <div className="side right">
@@ -64,7 +64,7 @@ export default function AggregatedReviews(props) {
                     </div>
                     <div className="middle">
                         <div className="bar-container">
-                            <div className="bar-3" style={{width: calculatePercentage(props.numEach[2], props.numReviews)}}></div>
+                            <div className="bar-4" style={{width: calculatePercentage(props.numEach[2], props.numReviews)}}></div>
                         </div>
                     </div>
                     <div className="side right">
@@ -75,7 +75,7 @@ export default function AggregatedReviews(props) {
                     </div>
                     <div className="middle">
                         <div className="bar-container">
-                            <div className="bar-2" style={{width: calculatePercentage(props.numEach[3], props.numReviews)}}></div>
+                            <div className="bar-4" style={{width: calculatePercentage(props.numEach[3], props.numReviews)}}></div>
                         </div>
                     </div>
                     <div className="side right">
@@ -86,7 +86,7 @@ export default function AggregatedReviews(props) {
                     </div>
                     <div className="middle">
                         <div className="bar-container">
-                            <div className="bar-1" style={{width: calculatePercentage(props.numEach[4], props.numReviews)}}></div>
+                            <div className="bar-4" style={{width: calculatePercentage(props.numEach[4], props.numReviews)}}></div>
                         </div>
                     </div>
                     <div className="side right">
