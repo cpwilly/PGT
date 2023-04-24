@@ -1,11 +1,10 @@
 import * as React from 'react';
-import ReactDOM from "react-dom";
 import AggregatedReviews from '../components/AggregatedReviews';
 import DormName from '../components/DormName';
 import Table from '../components/Table';
 import { Auth } from 'aws-amplify';
 import { useEffect } from 'react';
-import { getDorm, getReview } from '../components/DataRequester'
+import { getDorm, getReview } from '../components/DataRequester';
 import Review from '../components/review';
 
 // Might need to refactor to take into account await methods
@@ -16,7 +15,7 @@ function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {
     + jsonDorm.twos * 2 + jsonDorm.ones;
   let totalReviews = jsonDorm.fives + jsonDorm.fours + jsonDorm.threes + jsonDorm.twos + jsonDorm.ones;
   // Can't divide by zero
-  if (totalReviews == 0) { var netTotalReviews = 1; }
+  if (totalReviews === 0) { var netTotalReviews = 1; }
   else { var netTotalReviews = totalReviews }
   // console.log('jsonDorm: ');
   // console.log(jsonDorm);
@@ -111,6 +110,11 @@ export default function DisplayPage(props) {
     fetchData();
   }, [setUserInfo, setData, setRows, setNumEach, props.name, dbSend])
 
+  function NoReviews( {revs} ) {
+    if (revs.length === 0)
+      return <i>There are no reviews here. Be the first to leave a review!</i>;
+  }
+
   return (
     <div className='bod'>
       <DormName dormName={props.name} />
@@ -121,6 +125,7 @@ export default function DisplayPage(props) {
                          dormName={props.name} 
                          setDbSend={setDbSend}
                          dbSend={dbSend}/>
+      <NoReviews revs={rows}/>
       <Table rows={rows} />
     </div>
   );

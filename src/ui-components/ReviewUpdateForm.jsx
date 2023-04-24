@@ -20,7 +20,7 @@ import { DataStore } from "aws-amplify";
 export default function ReviewUpdateForm(props) {
   const {
     id: idProp,
-    review: reviewModelProp,
+    review,
     onSuccess,
     onError,
     onSubmit,
@@ -73,16 +73,14 @@ export default function ReviewUpdateForm(props) {
     setUserEmail(cleanValues.userEmail);
     setErrors({});
   };
-  const [reviewRecord, setReviewRecord] = React.useState(reviewModelProp);
+  const [reviewRecord, setReviewRecord] = React.useState(review);
   React.useEffect(() => {
     const queryData = async () => {
-      const record = idProp
-        ? await DataStore.query(Review, idProp)
-        : reviewModelProp;
+      const record = idProp ? await DataStore.query(Review, idProp) : review;
       setReviewRecord(record);
     };
     queryData();
-  }, [idProp, reviewModelProp]);
+  }, [idProp, review]);
   React.useEffect(resetStateValues, [reviewRecord]);
   const validations = {
     dormName: [],
@@ -487,7 +485,7 @@ export default function ReviewUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || reviewModelProp)}
+          isDisabled={!(idProp || review)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -499,7 +497,7 @@ export default function ReviewUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || reviewModelProp) ||
+              !(idProp || review) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

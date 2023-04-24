@@ -1,11 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Router } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DisplayPage from "./pages/DisplayPage";
 import FilterPage from "./pages/FilterPage";
 import Layout from "./pages/Layout";
 import NoPage from "./pages/NoPage";
-import { withAuthenticator, Button } from '@aws-amplify/ui-react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
+
 
 export function App({user, signOut}) {
   const [selected, setSelected] = React.useState('Taplin');
