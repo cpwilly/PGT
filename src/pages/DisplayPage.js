@@ -110,6 +110,11 @@ export default function DisplayPage(props) {
     fetchData();
   }, [setUserInfo, setData, setRows, setNumEach, props.name, dbSend])
 
+  function NoReviews( {revs} ) {
+    if (revs.length === 0)
+      return <i>There are no reviews here. Be the first to leave a review!</i>;
+  }
+
   return (
     <div className='bod'>
       <DormName dormName={props.name} />
@@ -120,6 +125,7 @@ export default function DisplayPage(props) {
                          dormName={props.name} 
                          setDbSend={setDbSend}
                          dbSend={dbSend}/>
+      <NoReviews revs={rows}/>
       <Table rows={rows} />
     </div>
   );
