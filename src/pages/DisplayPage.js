@@ -18,10 +18,10 @@ function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {
   // Can't divide by zero
   if (totalReviews == 0) { var netTotalReviews = 1; }
   else { var netTotalReviews = totalReviews }
-  console.log('jsonDorm: ');
-  console.log(jsonDorm);
-  console.log('jsonReviews: ');
-  console.log(jsonReviews);
+  // console.log('jsonDorm: ');
+  // console.log(jsonDorm);
+  // console.log('jsonReviews: ');
+  // console.log(jsonReviews);
 
   let data = {
     name: jsonDorm.name,
@@ -37,8 +37,8 @@ function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {
     reviews: jsonReviews
   };
 
-  console.log('data: ')
-  console.log(data);
+  //console.log('data: ')
+  //console.log(data);
   return data;
 
   // <Table reviews={data.reviews} />

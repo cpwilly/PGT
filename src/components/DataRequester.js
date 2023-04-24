@@ -43,8 +43,8 @@ export async function getReview(tag) {
 //This is a POST request. We pass in a DataType to choose where our post goes to
 //If we don't the method will fail
 export async function postReview(JsonObject) {
-    console.log('JsonObject: ')
-    console.log(JsonObject);
+    // console.log('JsonObject: ')
+    // console.log(JsonObject);
     try {
         await DataStore.save(
             new Review({
