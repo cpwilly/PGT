@@ -9,11 +9,8 @@ import Rating from './Rating';
 import ResidentsDropdown from './ResidentsDropdown';
 import BathroomsDropdown from './BathroomsDropdown';
 import Box from '@mui/material/Box';
-import DataRequester from './DataRequester';
-import DataType from './DataType';
-import { Review } from '../models/index.js'
 import { useEffect } from 'react';
-import { getDorm, getReview, postReview, addRating } from './DataRequester'
+import { getDorm, postReview, addRating } from './DataRequester'
 
 // number of residents
 // number of bathrooms

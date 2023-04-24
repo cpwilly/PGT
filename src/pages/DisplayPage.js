@@ -15,7 +15,7 @@ function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {
     + jsonDorm.twos * 2 + jsonDorm.ones;
   let totalReviews = jsonDorm.fives + jsonDorm.fours + jsonDorm.threes + jsonDorm.twos + jsonDorm.ones;
   // Can't divide by zero
-  if (totalReviews == 0) { var netTotalReviews = 1; }
+  if (totalReviews === 0) { var netTotalReviews = 1; }
   else { var netTotalReviews = totalReviews }
   // console.log('jsonDorm: ');
   // console.log(jsonDorm);

@@ -7,9 +7,6 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 
-
-
-
 const options = [
   "Clarke",
   "Cutler",
