@@ -29,7 +29,7 @@ function FilterPage(props) {
     navigate('DisplayPage');
   }
   return (
-    <>
+      <>
       <div className='container-fluid' id='selection' style={{ backgroundImage: `url(${track})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
         <div className='col text-center'>
           <div className='row-md-6'>
