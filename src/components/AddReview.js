@@ -12,18 +12,47 @@ import Box from '@mui/material/Box';
 import DataRequester from './DataRequester';
 import DataType from './DataType';
 import { Review } from '../models/index.js'
+import { useEffect } from 'react';
+import { getDorm, getReview, postReview, addRating } from './DataRequester'
 
 // number of residents
 // number of bathrooms
 // description
 // rating
 
-export default async function AddReview(props) {
+
+/*dormName: props.dormName,
+      date: new Date(),
+      wouldRoomAgain: true,
+      numResidents: residents,
+      numBathrooms: bathrooms,
+      description: description,
+      rating: rating,
+      numLikes: 0,
+      userEmail: props.email */
+function createRev(dormName, wouldRoomAgain, numResidents, numBathrooms, description, rating, numLikes, userEmail) {
+  let rev = {
+    dormName: dormName,
+    date: new Date().toISOString(),
+    wouldRoomAgain: wouldRoomAgain,
+    numResidents: numResidents,
+    numBathrooms: numBathrooms,
+    description: description,
+    rating: rating,
+    numLikes: numLikes,
+    userEmail: userEmail
+  };
+
+  return rev;
+}
+
+export default function AddReview(props) {
   const [open, setOpen] = React.useState(false);
-  const [residents, setResidents] = React.useState('');
+  const [residents, setResidents] = React.useState(-1);
   const [bathrooms, setBathrooms] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [rating, setRating] = React.useState(-1);
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,7 +60,7 @@ export default async function AddReview(props) {
 
   const handleClose = () => {
     setOpen(false);
-    setResidents('');
+    setResidents(-1);
     setBathrooms('');
     setDescription('');
     setRating(-1);
@@ -41,34 +70,30 @@ export default async function AddReview(props) {
 
     // TODO: add form validation
 
-    databaseSend();
-    handleClose();
+    props.setDbSend(true);
   }
 
+
+  useEffect(() => {
     const databaseSend = async () => {
-    let requester = new DataRequester();
-    let jsonUserReviews = await requester.getReview(props.email);
-    const isSameDorm = (element) => element.dormName == props.dormName;
+      // Do not currently have functionality to check review limits per account
 
-    if(jsonUserReviews.length < 3 && !jsonUserReviews.some(isSameDorm)){
-      requester.postData(new Review({
-        //Unsure if this is the correct JSON object
-        "dormName": props.dormName,
-        "date": new Date(),
-        "wouldRoomAgain": true,
-        "numResidents": residents,
-        "numBathrooms": bathrooms,
-        "description": description,
-        "rating": rating,
-        "numLikes": 0,
-        "userEmail": props.email
-      })
-    );
-  
-      let dorm = await requester.getDorm(props.dormName);
-      await requester.addRating(dorm, rating);
+      if(props.dbSend === true){
+        let rev = createRev(props.dormName, true, residents, bathrooms, description, rating, 0, props.email);
+        //console.log(rev);
+        let dorm = await getDorm(props.dormName);
+        console.log('dorm: ');
+        console.log(dorm);
+        await addRating(dorm[0], rating);
+        postReview(rev);
+        handleClose();
+        props.setDbSend(false);
+      }
     }
-  }
+    databaseSend();
+  }, [props.dbSend, props.dormName, residents, bathrooms, description, rating, props.email])
+
+
 
   const handleResidentsChange = (newValue) => {
     setResidents(newValue);
@@ -100,10 +125,10 @@ export default async function AddReview(props) {
         <DialogTitle>Add Review</DialogTitle>
         <DialogContent>
           <Box sx={{ mt: 1 }}>
-            <ResidentsDropdown handleResidentsChange={handleResidentsChange}/>
+            <ResidentsDropdown handleResidentsChange={handleResidentsChange} />
           </Box>
           <Box sx={{ mt: 2 }}>
-            <BathroomsDropdown handleBathroomsChange={handleBathroomsChange}/>
+            <BathroomsDropdown handleBathroomsChange={handleBathroomsChange} />
           </Box>
           <TextField
             autoFocus
@@ -117,7 +142,7 @@ export default async function AddReview(props) {
             value={description}
             onChange={e => handleDescriptionChange(e)}
           />
-          <Rating handleRatingsChange={handleRatingsChange}/>
+          <Rating handleRatingsChange={handleRatingsChange} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
