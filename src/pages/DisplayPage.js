@@ -27,8 +27,6 @@ function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {
     name: jsonDorm.name,
     rating: (totalRating / netTotalReviews), //Needs to be calculated
     numReviews: totalReviews,
-    // rating: 5, //Needs to be calculated
-    // numReviews: 150,
     ones: jsonDorm.ones,
     twos: jsonDorm.twos,
     threes: jsonDorm.threes,
@@ -41,16 +39,6 @@ function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {
   //console.log(data);
   return data;
 
-  // <Table reviews={data.reviews} />
-  /*{data.reviews.map((Review, index) => {
-  return (
-      <div key={index}>
-          <h2>review: {Review}</h2>
-          <hr />
-      </div>
-      );
-      })}*/
-
 }
 
 function createData(review) {
@@ -60,7 +48,7 @@ function createData(review) {
 function addReviews(reviews){
   let rows = []
 
-  console.log(reviews);
+ // console.log(reviews);
 
   for(let i = 0; i < reviews.length; i++){
     rows = [...rows, createData(<Review
@@ -99,9 +87,10 @@ export default function DisplayPage(props) {
       rating: 5
     }]
   });
-  let numEach = [data.fives, data.fours, data.threes, data.twos, data.ones];
+  const [numEach, setNumEach] = React.useState([data.fives, data.fours, data.threes, data.twos, data.ones]);
   const [userInfo, setUserInfo] = React.useState({ attributes: { email: 'test@test.com' } });
   const [rows, setRows] = React.useState([]);
+  const [dbSend, setDbSend] = React.useState(false);
 
 
   useEffect(() => {
@@ -110,17 +99,28 @@ export default function DisplayPage(props) {
       const jsonReviewsPromise = await getReview(props.name);
       const info = await Auth.currentUserInfo();
       const data = databaseReceive(props.name, jsonDormsPromise, jsonReviewsPromise);
+      console.log('numEach: ');
+      console.log(numEach);
+      console.log('fetchedData: ');
+      console.log(data);
       setUserInfo(info);
       setData(data);
+      setNumEach([data.fives, data.fours, data.threes, data.twos, data.ones]);
       setRows(addReviews(data.reviews));
     }
     fetchData();
-  }, [setUserInfo, setData, setRows, props.name])
+  }, [setUserInfo, setData, setRows, setNumEach, props.name, dbSend])
 
   return (
     <div className='bod'>
       <DormName dormName={props.name} />
-      <AggregatedReviews email={userInfo.attributes.email} numReviews={data.numReviews} rating={data.rating} numEach={numEach} dormName={props.name} />
+      <AggregatedReviews email={userInfo.attributes.email} 
+                         numReviews={data.numReviews} 
+                         rating={data.rating} 
+                         numEach={numEach} 
+                         dormName={props.name} 
+                         setDbSend={setDbSend}
+                         dbSend={dbSend}/>
       <Table rows={rows} />
     </div>
   );

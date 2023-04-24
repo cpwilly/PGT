@@ -52,7 +52,7 @@ export default function AddReview(props) {
   const [bathrooms, setBathrooms] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [rating, setRating] = React.useState(-1);
-  const [dbSend, setDbSend] = React.useState(false);
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -70,7 +70,7 @@ export default function AddReview(props) {
 
     // TODO: add form validation
 
-    setDbSend(true);
+    props.setDbSend(true);
   }
 
 
@@ -78,7 +78,7 @@ export default function AddReview(props) {
     const databaseSend = async () => {
       // Do not currently have functionality to check review limits per account
 
-      if(dbSend === true){
+      if(props.dbSend === true){
         let rev = createRev(props.dormName, true, residents, bathrooms, description, rating, 0, props.email);
         //console.log(rev);
         let dorm = await getDorm(props.dormName);
@@ -87,11 +87,11 @@ export default function AddReview(props) {
         await addRating(dorm[0], rating);
         postReview(rev);
         handleClose();
-        setDbSend(false);
+        props.setDbSend(false);
       }
     }
     databaseSend();
-  }, [dbSend, props.dormName, residents, bathrooms, description, rating, props.email])
+  }, [props.dbSend, props.dormName, residents, bathrooms, description, rating, props.email])
 
 
 
