@@ -5,7 +5,7 @@ import Table from '../components/Table';
 import { Auth } from 'aws-amplify';
 import { useEffect } from 'react';
 import { getDorm, getReview } from '../components/DataRequester';
-import Review from '../components/Review';
+import Review from '../components/review';
 
 // Might need to refactor to take into account await methods
 function databaseReceive(name, jsonDormsPromise, jsonReviewsPromise) {

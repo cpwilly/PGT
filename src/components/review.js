@@ -4,13 +4,21 @@ import Grid from '@mui/material/Grid';
 import { Box, CardContent, Typography } from '@mui/material';
 
 export default function Review(props) {
+  function formatDate(date) {
+    let formatted = "";
+    let i = 0;
+    while (date.charAt(i) === '-' || (date.charAt(i) >= '0' && date.charAt(i) <= '9')) {
+      formatted = formatted + date.charAt(i++);
+    }
+    return formatted;
+  }
   return (
     <Card sx={{ maxWidth: 800 }}>
       <Grid container>
         <Grid item xs={10}></Grid>
         <Grid item xs={2}>
           <div>
-            {props.date}
+            {formatDate(props.date)}
           </div>
         </Grid>
         <Grid item xs={2}></Grid>

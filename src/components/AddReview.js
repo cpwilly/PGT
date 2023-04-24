@@ -67,8 +67,7 @@ export default function AddReview(props) {
   };
 
   const handleAdd = () => {
-
-    // TODO: add form validation
+    // TODO add validation
 
     setDbSend(true);
   }

@@ -8,6 +8,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import track from '../img/track.png'
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function FilterPage(props) {
   return (
