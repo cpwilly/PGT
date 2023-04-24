@@ -84,23 +84,29 @@ export async function addRating(CURRENT_ITEM, rating) {
                 await DataStore.save(Dorm.copyOf(CURRENT_ITEM, item => {
                     item.ones = CURRENT_ITEM.ones + 1;
                 }));
+                break;
             case 2:
                 await DataStore.save(Dorm.copyOf(CURRENT_ITEM, item => {
                     item.twos = CURRENT_ITEM.twos + 1;
                 }));
+                break;
             case 3:
                 await DataStore.save(Dorm.copyOf(CURRENT_ITEM, item => {
                     item.threes = CURRENT_ITEM.threes + 1;
                 }));
+                break;
             case 4:
                 await DataStore.save(Dorm.copyOf(CURRENT_ITEM, item => {
                     item.fours = CURRENT_ITEM.fours + 1;
                 }));
+                break;
             case 5:
                 await DataStore.save(Dorm.copyOf(CURRENT_ITEM, item => {
                     item.fives = CURRENT_ITEM.fives + 1;
                 }));
+                break;
             default:
+                break;
         }
     } catch (Error) {
         console.log(Error);
