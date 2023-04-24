@@ -81,12 +81,14 @@ export default function AddReview(props) {
       if(dbSend === true){
         let rev = createRev(props.dormName, true, residents, bathrooms, description, rating, 0, props.email);
         //console.log(rev);
+        let dorm = await getDorm(props.dormName);
+        console.log('dorm: ');
+        console.log(dorm);
+        await addRating(dorm[0], rating);
         postReview(rev);
         handleClose();
         setDbSend(false);
       }
-      //  let dorm = await getDorm(props.dormName);
-      //  await addRating(dorm, rating);
     }
     databaseSend();
   }, [dbSend, props.dormName, residents, bathrooms, description, rating, props.email])

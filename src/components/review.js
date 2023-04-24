@@ -13,7 +13,7 @@ export default function Review(props) {
             {props.date}
           </div>
         </Grid>
-        <Grid xs={2}></Grid>
+        <Grid item xs={2}></Grid>
         <Grid item xs={4}>
           Number of Residents: {props.numResidents}
         </Grid>
