@@ -44,19 +44,20 @@ function createData(review) {
   return { review };
 }
 
-function addReviews(reviews){
+function addReviews(reviews) {
   let rows = []
 
- // console.log(reviews);
+  // console.log(reviews);
 
-  for(let i = 0; i < reviews.length; i++){
+  for (let i = 0; i < reviews.length; i++) {
     rows = [...rows, createData(<Review
-                       date={reviews[i].date}
-                       numResidents={reviews[i].numResidents}
-                       numBathrooms={reviews[i].numBathrooms}
-                       description={reviews[i].description}
-                       rating={reviews[i].rating}
-                       />)];
+      date={reviews[i].date}
+      numResidents={reviews[i].numResidents}
+      numBathrooms={reviews[i].numBathrooms}
+      description={reviews[i].description}
+      rating={reviews[i].rating}
+      email={reviews[i].userEmail}
+    />)];
   }
 
   return rows;
@@ -110,7 +111,7 @@ export default function DisplayPage(props) {
     fetchData();
   }, [setUserInfo, setData, setRows, setNumEach, props.name, dbSend])
 
-  function NoReviews( {revs} ) {
+  function NoReviews({ revs }) {
     if (revs.length === 0)
       return <i>There are no reviews here. Be the first to leave a review!</i>;
   }
@@ -118,14 +119,14 @@ export default function DisplayPage(props) {
   return (
     <div className='bod'>
       <DormName dormName={props.name} />
-      <AggregatedReviews email={userInfo.attributes.email} 
-                         numReviews={data.numReviews} 
-                         rating={data.rating} 
-                         numEach={numEach} 
-                         dormName={props.name} 
-                         setDbSend={setDbSend}
-                         dbSend={dbSend}/>
-      <NoReviews revs={rows}/>
+      <AggregatedReviews email={userInfo.attributes.email}
+        numReviews={data.numReviews}
+        rating={data.rating}
+        numEach={numEach}
+        dormName={props.name}
+        setDbSend={setDbSend}
+        dbSend={dbSend} />
+      <NoReviews revs={rows} />
       <Table rows={rows} />
     </div>
   );
