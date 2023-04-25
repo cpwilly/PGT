@@ -49,7 +49,7 @@ function addReviews(reviews) {
 
   // console.log(reviews);
 
-  for (let i = 0; i < reviews.length; i++) {
+  for (let i = reviews.length-1; i >= 0; i--) {
     rows = [...rows, createData(<Review
       date={reviews[i].date}
       numResidents={reviews[i].numResidents}
@@ -57,6 +57,7 @@ function addReviews(reviews) {
       description={reviews[i].description}
       rating={reviews[i].rating}
       email={reviews[i].userEmail}
+      id={reviews[i].id}
     />)];
   }
 
