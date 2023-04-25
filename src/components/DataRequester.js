@@ -42,8 +42,8 @@ export async function getReview(tag) {
 
  */
 
-//This is a POST request. We pass in a DataType to choose where our post goes to
-//If we don't the method will fail
+// This is a POST request. We pass in a DataType to choose where our post goes to
+// If we don't the method will fail
 export async function postReview(JsonObject) {
     // console.log('JsonObject: ')
     // console.log(JsonObject);
@@ -66,7 +66,17 @@ export async function postReview(JsonObject) {
     }
 }
 
-//This is a DELETE request.
+export async function deleteReview(dataId) {
+    try {
+        const modelToDelete = await DataStore.query(Review, dataId);
+        console.log(modelToDelete[0]);
+        DataStore.delete(modelToDelete[0]);
+    } catch (Error) {
+        console.log(Error);
+    }
+}
+
+// This is a DELETE request.
 export async function deleteDorm(dataType, dataId) {
     try {
         const modelToDelete = await DataStore.query(Dorm, dataId);

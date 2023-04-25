@@ -1,19 +1,23 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
+import { useEffect } from 'react';
+import { Button } from '@mui/material';
 import { Box, CardContent, Typography } from '@mui/material';
+import { Auth } from 'aws-amplify';
+import { deleteReview } from './DataRequester';
 
 export default function Review(props) {
   function formatDate(date) {
     let formatted = "";
     let year = "";
     let i = 0;
-    while (i < 4) 
+    while (i < 4)
       year = year + date.charAt(i++);
     i = 5;
-    if (date.charAt(i) === '0') 
+    if (date.charAt(i) === '0')
       i++;
-    while (date.charAt(i) === '-' || (date.charAt(i) >= '0' && date.charAt(i) <= '9')) 
+    while (date.charAt(i) === '-' || (date.charAt(i) >= '0' && date.charAt(i) <= '9'))
       formatted = formatted + date.charAt(i++);
     return formatted + "-" + year;
   }
@@ -27,6 +31,24 @@ export default function Review(props) {
       color = '#f56262';
     return color;
   }
+
+  const [userInfo, setUserInfo] = React.useState({ attributes: { email: 'test@test.com' } });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const info = await Auth.currentUserInfo();
+      setUserInfo(info);
+    }
+    fetchData();
+
+  }, [setUserInfo])
+
+
+  function Delete({ email }) {
+    if (email === userInfo.attributes.email)
+      return <Button color='error' variant='contained' size='small' >Delete</Button>
+  }
+
 
   return (
     <Card sx={{ maxWidth: 800 }}>
@@ -72,10 +94,9 @@ export default function Review(props) {
         </Grid>
         <Grid xs={1}></Grid>
         <Grid xs={1}>&nbsp;</Grid>
-        <Grid xs={1}>&nbsp;</Grid>
-        <Grid xs={1}></Grid>
-        <Grid xs={1}></Grid>
-        <Grid xs={1}></Grid>
+        <Grid xs={9}>&nbsp;</Grid>
+        <Grid xs={2}><Delete email={props.email}/></Grid>
+        <Grid xs={9}>&nbsp;</Grid>
       </Grid>
     </Card>
   );

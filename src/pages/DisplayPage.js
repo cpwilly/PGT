@@ -50,18 +50,21 @@ function createData(review) {
   return { review };
 }
 
-function addReviews(reviews) {
+function addReviews(reviews)  {
   let rows = []
 
   // console.log(reviews);
+  // console.log(reviews);
 
-  for (let i = 0; i < reviews.length; i++) {
+  for (let i = reviews.length-1; i >= 0; i--) {
     rows = [...rows, createData(<Review
       date={reviews[i].date}
       numResidents={reviews[i].numResidents}
       numBathrooms={reviews[i].numBathrooms}
       description={reviews[i].description}
       rating={reviews[i].rating}
+      email={reviews[i].userEmail}
+      id={reviews[i].id}
     />)];
   }
 
@@ -97,6 +100,7 @@ export default function DisplayPage(props) {
   const [rows, setRows] = React.useState([]);
   const [dbSend, setDbSend] = React.useState(false);
   const [dbFetch, setDbFetch] = React.useState(0);
+
 
 
   useEffect(() => {
@@ -148,7 +152,7 @@ export default function DisplayPage(props) {
   }, [setUserInfo, setData, setRows, setNumEach, setDbFetch, props.name, dbSend, dbFetch])
 
   function NoReviews({ revs }) {
-    if (revs.length === 0) {
+    if (revs.length === 0){
       return <i>There are no reviews here. Be the first to leave a review!</i>;
     }
   }
@@ -162,8 +166,7 @@ export default function DisplayPage(props) {
         numEach={numEach}
         dormName={props.name}
         setDbSend={setDbSend}
-        dbSend={dbSend} 
-        />
+        dbSend={dbSend} />
       <NoReviews revs={rows} />
       <Table rows={rows} />
     </div>
