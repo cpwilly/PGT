@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { Button } from '@mui/material';
 import { Box, CardContent, Typography } from '@mui/material';
 import { Auth } from 'aws-amplify';
-import { deleteReview } from './DataRequester';
 
 export default function Review(props) {
   function formatDate(date) {
