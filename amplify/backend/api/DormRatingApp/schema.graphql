@@ -1,26 +1,23 @@
 type Review @model @auth(rules: [{allow: public}]) {
   id: ID!
-  Description: String
-  Date: AWSDate
-  WouldRoomAgain: Boolean
-  accountID: ID! @index(name: "byAccount")
-  Account: Account @belongsTo(fields: ["accountID"])
-  Rating: Float
-  Bathroom: String
+  dormName: String
+  date: String
+  wouldRoomAgain: Boolean
   numResidents: Int
+  numBathrooms: String
+  description: String
+  rating: Int
+  numLikes: Int
+  userEmail: String
 }
 
 type Dorm @model @auth(rules: [{allow: public}]) {
   id: ID!
-  Name: String
-  numReviews: Int
-  ratings: Int
-}
-
-type Account @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  Email: AWSEmail!
-  ReviewCount: Int
-  Reviews: [Review] @hasMany(indexName: "byAccount", fields: ["id"])
+  name: String
+  ones: Int
+  twos: Int
+  threes: Int
+  fours: Int
+  fives: Int
 }
  

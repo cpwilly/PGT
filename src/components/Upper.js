@@ -31,7 +31,7 @@ const options = ["1609 Hazel Apartments",
     "Twin Gables"];
     
 function DropdownForm(props) {
-  let navigate = useNavigate();
+ let navigate = useNavigate();
 
   const [selected, setSelected] = useState(options[0]);
   const submit = () => {
@@ -45,6 +45,7 @@ function DropdownForm(props) {
           <Select
             value={selected} 
             onChange={(e) => setSelected(e.target.value)}
+            style={{ background : 'white'}}
           >
             {options.map((value) => (
               <MenuItem value={value} key={value}>

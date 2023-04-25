@@ -1,21 +1,64 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
+import { useEffect } from 'react';
+import { Button } from '@mui/material';
 import { Box, CardContent, Typography } from '@mui/material';
-import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import { Auth } from 'aws-amplify';
 
 export default function Review(props) {
+  function formatDate(date) {
+    let formatted = "";
+    let year = "";
+    let i = 0;
+    while (i < 4)
+      year = year + date.charAt(i++);
+    i = 5;
+    if (date.charAt(i) === '0')
+      i++;
+    while (date.charAt(i) === '-' || (date.charAt(i) >= '0' && date.charAt(i) <= '9'))
+      formatted = formatted + date.charAt(i++);
+    return formatted + "-" + year;
+  }
+
+
+  function boxColor(rating) {
+    let color = '#83BD7E';
+    if (rating === 3)
+      color = '#f5bd4e';
+    else if (rating === 2 || rating === 1)
+      color = '#f56262';
+    return color;
+  }
+
+  const [userInfo, setUserInfo] = React.useState({ attributes: { email: 'test@test.com' } });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const info = await Auth.currentUserInfo();
+      setUserInfo(info);
+    }
+    fetchData();
+
+  }, [setUserInfo])
+
+
+  function Delete({ email }) {
+    if (email === userInfo.attributes.email)
+      return <Button color='error' variant='contained' size='small' >Delete</Button>
+  }
+
+
   return (
     <Card sx={{ maxWidth: 800 }}>
       <Grid container>
         <Grid item xs={10}></Grid>
         <Grid item xs={2}>
           <div>
-            {props.date}
+            {formatDate(props.date)}
           </div>
         </Grid>
-        <Grid xs={2}></Grid>
+        <Grid item xs={2}></Grid>
         <Grid item xs={4}>
           Number of Residents: {props.numResidents}
         </Grid>
@@ -28,7 +71,7 @@ export default function Review(props) {
             <Box sx={{
               width: 60,
               height: 60,
-              backgroundColor: '#83BD7E',
+              backgroundColor: boxColor(props.rating),
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -49,15 +92,10 @@ export default function Review(props) {
           </CardContent>
         </Grid>
         <Grid xs={1}></Grid>
-        <Grid xs={1}></Grid>
-        <Grid xs={1}>
-          <ThumbUpOffAltIcon />
-        </Grid>
-        <Grid xs={1}>1</Grid>
-        <Grid xs={1}>
-          <ThumbDownOffAltIcon />
-        </Grid>
-        <Grid xs={1}>1</Grid>
+        <Grid xs={1}>&nbsp;</Grid>
+        <Grid xs={9}>&nbsp;</Grid>
+        <Grid xs={2}><Delete email={props.email}/></Grid>
+        <Grid xs={9}>&nbsp;</Grid>
       </Grid>
     </Card>
   );

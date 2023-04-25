@@ -11,18 +11,25 @@ function calculatePercentage(value, total){
     return percent + '%';
 }
 
+function pluralize(word, number) {
+    if (number === 1)
+        return word;
+    else return word + 's';
+}
+
 export default function AggregatedReviews(props) {
+
     return (
         <div>
             <div className='row'>
                 <div className='col-lg-8'>
                     <span className="heading">Dorm Rating</span>
                     <ReadOnlyRating rating={props.rating}/>
-                    <p>{props.rating} average based on {props.numReviews} reviews.</p>
+                    <p>{Math.round(props.rating*100)/100} star average based on {props.numReviews} {pluralize("review", props.numReviews)}.</p>
                 </div>
                 <div className='col-lg-4'>
                     <Box sx={{ pt: 2, ml: 12 }}>
-                        <AddReview />
+                        < AddReview email={props.email} dormName={props.dormName}  dbSend={props.dbSend} setDbSend={props.setDbSend}/>
                     </Box>
                 </div>
             </div>
@@ -34,7 +41,7 @@ export default function AggregatedReviews(props) {
                     </div>
                     <div className="middle">
                         <div className="bar-container">
-                            <div className="bar-5" style={{width: calculatePercentage(props.numEach[0], props.numReviews)}}></div>
+                            <div className="bar-4" style={{width: calculatePercentage(props.numEach[0], props.numReviews)}}></div>
                         </div>
                     </div>
                     <div className="side right">
@@ -56,7 +63,7 @@ export default function AggregatedReviews(props) {
                     </div>
                     <div className="middle">
                         <div className="bar-container">
-                            <div className="bar-3" style={{width: calculatePercentage(props.numEach[2], props.numReviews)}}></div>
+                            <div className="bar-4" style={{width: calculatePercentage(props.numEach[2], props.numReviews)}}></div>
                         </div>
                     </div>
                     <div className="side right">
@@ -67,7 +74,7 @@ export default function AggregatedReviews(props) {
                     </div>
                     <div className="middle">
                         <div className="bar-container">
-                            <div className="bar-2" style={{width: calculatePercentage(props.numEach[3], props.numReviews)}}></div>
+                            <div className="bar-4" style={{width: calculatePercentage(props.numEach[3], props.numReviews)}}></div>
                         </div>
                     </div>
                     <div className="side right">
@@ -78,7 +85,7 @@ export default function AggregatedReviews(props) {
                     </div>
                     <div className="middle">
                         <div className="bar-container">
-                            <div className="bar-1" style={{width: calculatePercentage(props.numEach[4], props.numReviews)}}></div>
+                            <div className="bar-4" style={{width: calculatePercentage(props.numEach[4], props.numReviews)}}></div>
                         </div>
                     </div>
                     <div className="side right">

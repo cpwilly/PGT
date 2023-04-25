@@ -1,6 +1,6 @@
 import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-amplify/datastore";
 // @ts-ignore
-import { LazyLoading, LazyLoadingDisabled, AsyncItem, AsyncCollection } from "@aws-amplify/datastore";
+import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
 
 
@@ -12,14 +12,15 @@ type EagerReview = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly Description?: string | null;
-  readonly Date?: string | null;
-  readonly WouldRoomAgain?: boolean | null;
-  readonly accountID: string;
-  readonly Account?: Account | null;
-  readonly Rating?: number | null;
-  readonly Bathroom?: string | null;
+  readonly dormName?: string | null;
+  readonly date?: string | null;
+  readonly wouldRoomAgain?: boolean | null;
   readonly numResidents?: number | null;
+  readonly numBathrooms?: string | null;
+  readonly description?: string | null;
+  readonly rating?: number | null;
+  readonly numLikes?: number | null;
+  readonly userEmail?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -30,14 +31,15 @@ type LazyReview = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly Description?: string | null;
-  readonly Date?: string | null;
-  readonly WouldRoomAgain?: boolean | null;
-  readonly accountID: string;
-  readonly Account: AsyncItem<Account | undefined>;
-  readonly Rating?: number | null;
-  readonly Bathroom?: string | null;
+  readonly dormName?: string | null;
+  readonly date?: string | null;
+  readonly wouldRoomAgain?: boolean | null;
   readonly numResidents?: number | null;
+  readonly numBathrooms?: string | null;
+  readonly description?: string | null;
+  readonly rating?: number | null;
+  readonly numLikes?: number | null;
+  readonly userEmail?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -54,9 +56,12 @@ type EagerDorm = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly Name?: string | null;
-  readonly numReviews?: number | null;
-  readonly ratings?: number | null;
+  readonly name?: string | null;
+  readonly ones?: number | null;
+  readonly twos?: number | null;
+  readonly threes?: number | null;
+  readonly fours?: number | null;
+  readonly fives?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -67,9 +72,12 @@ type LazyDorm = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly Name?: string | null;
-  readonly numReviews?: number | null;
-  readonly ratings?: number | null;
+  readonly name?: string | null;
+  readonly ones?: number | null;
+  readonly twos?: number | null;
+  readonly threes?: number | null;
+  readonly fours?: number | null;
+  readonly fives?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -78,36 +86,4 @@ export declare type Dorm = LazyLoading extends LazyLoadingDisabled ? EagerDorm :
 
 export declare const Dorm: (new (init: ModelInit<Dorm>) => Dorm) & {
   copyOf(source: Dorm, mutator: (draft: MutableModel<Dorm>) => MutableModel<Dorm> | void): Dorm;
-}
-
-type EagerAccount = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Account, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly Email: string;
-  readonly ReviewCount?: number | null;
-  readonly Reviews?: (Review | null)[] | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-type LazyAccount = {
-  readonly [__modelMeta__]: {
-    identifier: ManagedIdentifier<Account, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
-  };
-  readonly id: string;
-  readonly Email: string;
-  readonly ReviewCount?: number | null;
-  readonly Reviews: AsyncCollection<Review>;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-export declare type Account = LazyLoading extends LazyLoadingDisabled ? EagerAccount : LazyAccount
-
-export declare const Account: (new (init: ModelInit<Account>) => Account) & {
-  copyOf(source: Account, mutator: (draft: MutableModel<Account>) => MutableModel<Account> | void): Account;
 }

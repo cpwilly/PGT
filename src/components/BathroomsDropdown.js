@@ -15,8 +15,8 @@ export default function BasicSelect(props) {
 
   return (
     <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Bathrooms</InputLabel>
+      <FormControl fullWidth required={true}>
+        <InputLabel id="demo-simple-select-label">Number of bathrooms</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -24,7 +24,7 @@ export default function BasicSelect(props) {
           label="Bathrooms"
           onChange={handleChange}
         >
-          <MenuItem value={'communal'}>Communal</MenuItem>
+          <MenuItem value={'Communal'}>Communal</MenuItem>
           <MenuItem value={'1'}>1</MenuItem>
           <MenuItem value={'2'}>2</MenuItem>
           <MenuItem value={'3'}>3</MenuItem>
