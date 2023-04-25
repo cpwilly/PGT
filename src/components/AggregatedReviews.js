@@ -19,7 +19,6 @@ function pluralize(word, number) {
 
 export default function AggregatedReviews(props) {
 
-
     return (
         <div>
             <div className='row'>

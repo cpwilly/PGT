@@ -36,7 +36,7 @@ function DropdownForm(props) {
   const [selected, setSelected] = useState(options[0]);
   const submit = () => {
     props.setSelected(selected);
-   navigate('DisplayPage');
+    navigate('DisplayPage');
   };
   return (
     <>

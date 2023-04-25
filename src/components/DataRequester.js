@@ -7,10 +7,11 @@ import { Review } from '../models/index.js';
 export async function getDorm(tag) {
     try {
         var models = await DataStore.query(Dorm, (c) => c.name.eq(tag));
-        console.log("Dorm Requested");
+        // console.log("Dorm Requested");
 
         return await models;
     } catch (Error) {
+        console.log('error');
         console.log(Error);
     }
 }
@@ -19,9 +20,10 @@ export async function getDorm(tag) {
 export async function getReview(tag) {
     try {
         var models = await DataStore.query(Review, (c) => c.dormName.eq(tag));
-        console.log("Review Requested");
+        // console.log("Review Requested");
         return await models;
     } catch (Error) {
+        console.log('error');
         console.log(Error);
     }
 }
